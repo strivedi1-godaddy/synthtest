@@ -18,14 +18,59 @@
   --shadow:0 1px 3px rgba(0,0,0,.08),0 4px 16px rgba(0,0,0,.05);
 }
 body{font-family:var(--font);background:var(--bg);color:var(--text-1);font-size:14px;line-height:1.6;min-height:100vh}
-nav{background:var(--surface);border-bottom:1px solid var(--border);padding:0 32px;height:58px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:200}
-.logo{display:flex;align-items:center;gap:9px;font-weight:700;font-size:16px;color:var(--text-1);text-decoration:none;cursor:pointer}
+nav{background:var(--surface);border-bottom:1px solid var(--border);padding:0 24px;height:58px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:200}
+.logo{display:flex;align-items:center;gap:9px;font-weight:700;font-size:16px;color:var(--text-1);cursor:pointer}
 .logo-icon{width:30px;height:30px;background:var(--primary);border-radius:7px;display:grid;place-items:center}
 .logo-icon svg{width:16px;height:16px;fill:#fff}
-.nav-right{display:flex;align-items:center;gap:12px}
+.nav-right{display:flex;align-items:center;gap:10px}
 .nav-badge{background:var(--primary-light);color:var(--primary);font-size:11px;font-weight:600;padding:3px 8px;border-radius:20px}
 .back-btn{display:none;align-items:center;gap:6px;padding:7px 14px;border:1px solid var(--border);border-radius:7px;background:var(--surface);font-family:var(--font);font-size:13px;font-weight:600;color:var(--text-2);cursor:pointer;transition:all .2s}
-.back-btn:hover{background:var(--bg);color:var(--text-1)}
+.back-btn:hover{background:var(--bg)}
+.history-btn{display:flex;align-items:center;gap:6px;padding:7px 14px;border:1px solid var(--border);border-radius:7px;background:var(--surface);font-family:var(--font);font-size:13px;font-weight:600;color:var(--text-2);cursor:pointer;transition:all .2s;position:relative}
+.history-btn:hover{background:var(--bg)}
+.history-count{position:absolute;top:-5px;right:-5px;width:18px;height:18px;background:var(--primary);color:#fff;border-radius:50%;font-size:10px;font-weight:700;display:grid;place-items:center}
+
+/* HISTORY PANEL */
+.history-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:400}
+.history-overlay.visible{display:block}
+.history-panel{position:fixed;top:0;right:-420px;width:400px;height:100vh;background:var(--surface);border-left:1px solid var(--border);z-index:401;display:flex;flex-direction:column;transition:right .3s ease;box-shadow:-8px 0 32px rgba(0,0,0,.12)}
+.history-panel.open{right:0}
+.history-panel-hd{padding:20px 22px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
+.history-panel-hd h3{font-size:15px;font-weight:700}
+.history-close{width:28px;height:28px;border:none;background:var(--bg);border-radius:6px;cursor:pointer;font-size:16px;display:grid;place-items:center}
+.history-empty{padding:48px 24px;text-align:center;color:var(--text-3)}
+.history-empty .he-icon{font-size:36px;margin-bottom:12px}
+.history-item{background:var(--bg);border:1px solid var(--border);border-radius:var(--radius);padding:14px 16px;margin-bottom:10px;cursor:pointer;transition:all .2s}
+.history-item:hover{border-color:var(--primary);background:var(--primary-light)}
+.hi-top{display:flex;align-items:flex-start;justify-content:space-between;gap:8px;margin-bottom:8px}
+.hi-title{font-size:13px;font-weight:700;color:var(--text-1);line-height:1.4}
+.hi-actions{display:flex;gap:6px;flex-shrink:0}
+.hi-share{width:24px;height:24px;border:none;background:var(--primary-light);cursor:pointer;color:var(--primary);font-size:12px;display:grid;place-items:center;border-radius:5px;transition:all .15s}
+.hi-share:hover{background:var(--primary);color:#fff}
+.hi-delete{width:24px;height:24px;border:none;background:transparent;cursor:pointer;color:var(--text-3);font-size:14px;display:grid;place-items:center;border-radius:4px;transition:all .15s}
+.hi-delete:hover{background:var(--red-light);color:var(--red-dark)}
+.hi-meta{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.hi-score{font-size:11px;font-weight:700;padding:2px 8px;border-radius:20px}
+.hi-score.red{background:var(--red-light);color:var(--red-dark)}
+.hi-score.amber{background:var(--amber-light);color:var(--amber-dark)}
+.hi-score.green{background:var(--green-light);color:var(--green-dark)}
+.hi-persona{font-size:11.5px;color:var(--text-2)}
+.hi-date{font-size:11px;color:var(--text-3);margin-left:auto}
+.history-panel-ft{padding:14px 22px;border-top:1px solid var(--border);flex-shrink:0}
+.clear-all-btn{width:100%;padding:9px;border-radius:7px;border:1px solid var(--border);background:var(--bg);font-family:var(--font);font-size:13px;font-weight:600;color:var(--text-2);cursor:pointer;transition:all .2s}
+.clear-all-btn:hover{background:var(--red-light);color:var(--red-dark);border-color:var(--red)}
+
+/* SHARED REPORT BANNER */
+.shared-banner{display:none;background:var(--primary-light);border:1px solid #C7D2FE;border-radius:var(--radius);padding:14px 18px;margin-bottom:18px;align-items:center;justify-content:space-between;gap:12px}
+.shared-banner.visible{display:flex}
+.shared-banner-left{display:flex;align-items:center;gap:10px;font-size:13px;font-weight:600;color:var(--primary)}
+.shared-banner-close{width:24px;height:24px;border:none;background:transparent;cursor:pointer;color:var(--primary);font-size:16px;display:grid;place-items:center;border-radius:4px;opacity:.7}
+.shared-banner-close:hover{opacity:1}
+
+/* SHARE TOAST */
+.share-toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:#0F1117;color:#fff;padding:10px 20px;border-radius:9px;font-size:13px;font-weight:600;z-index:500;opacity:0;transition:opacity .3s;pointer-events:none}
+.share-toast.visible{opacity:1}
+
 #page-input{display:block}#page-results{display:none}
 main{max-width:920px;margin:0 auto;padding:36px 24px 80px}
 .page-header{margin-bottom:32px}
@@ -56,13 +101,24 @@ textarea{resize:vertical}
 .file-info{margin-top:10px;font-size:11.5px;color:var(--text-3)}
 .preview-wrap{margin-top:14px;border-radius:var(--radius);overflow:hidden;border:1px solid var(--border);position:relative}
 .preview-wrap video{width:100%;max-height:320px;object-fit:contain;display:block;background:#000}
-.preview-wrap iframe{width:100%;height:320px;border:none}
+.preview-wrap iframe{width:100%;height:380px;border:none}
 .preview-clear{position:absolute;top:8px;right:8px;background:rgba(0,0,0,.6);color:#fff;border:none;border-radius:20px;padding:3px 10px;font-size:11px;cursor:pointer;font-family:var(--font)}
 .ss-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:10px;margin-top:14px}
 .ss-thumb{position:relative;border-radius:7px;overflow:hidden;border:1px solid var(--border)}
 .ss-thumb img{width:100%;height:90px;object-fit:cover;display:block}
 .ss-thumb button{position:absolute;top:3px;right:3px;background:rgba(0,0,0,.55);color:#fff;border:none;border-radius:50%;width:20px;height:20px;cursor:pointer;font-size:12px;display:grid;place-items:center}
 .ss-count{font-size:12px;color:var(--primary);font-weight:600;margin-top:10px}
+.link-preview-card{background:var(--bg);border:1px solid var(--border);border-radius:var(--radius);padding:16px;margin-top:14px;display:none}
+.lpc-top{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.lpc-icon{font-size:22px}
+.lpc-info strong{display:block;font-size:13px;font-weight:700}
+.lpc-info span{font-size:12px;color:var(--text-2)}
+.lpc-url{font-size:11.5px;color:var(--text-3);word-break:break-all;margin-bottom:10px}
+.lpc-open{padding:6px 14px;border-radius:7px;border:1px solid var(--border);background:var(--surface);font-family:var(--font);font-size:12.5px;font-weight:600;color:var(--text-1);cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:6px;transition:all .2s}
+.lpc-open:hover{background:var(--primary);color:#fff;border-color:var(--primary)}
+.figma-embed-wrap{margin-top:14px;border-radius:var(--radius);overflow:hidden;border:1px solid var(--border);position:relative}
+.figma-embed-wrap iframe{width:100%;height:420px;border:none;display:block}
+.figma-embed-clear{position:absolute;top:8px;right:8px;background:rgba(0,0,0,.6);color:#fff;border:none;border-radius:20px;padding:3px 10px;font-size:11px;cursor:pointer;font-family:var(--font)}
 .api-row{display:flex;gap:9px;align-items:flex-end}
 .api-row .field{flex:1;margin:0}
 .toggle-btn{padding:9px 12px;border:1px solid var(--border);border-radius:7px;background:var(--bg);cursor:pointer;font-size:13px;flex-shrink:0}
@@ -87,14 +143,13 @@ textarea{resize:vertical}
 .log-line .ts{color:#5A6278;flex-shrink:0}
 .log-line.info .msg{color:#93C5FD}
 .log-line.ok .msg{color:#86EFAC}
+.log-line.warn .msg{color:#FCD34D}
 .log-line.err .msg{color:#FCA5A5}
 .error-banner{background:#FEF2F2;border:1px solid #FECACA;color:#991B1B;padding:13px 16px;border-radius:9px;font-size:13px;margin-top:14px;display:none;line-height:1.7}
 .error-banner strong{display:block;font-size:13.5px;margin-bottom:3px}
 .error-banner .fix{margin-top:9px;background:#FEE2E2;border-radius:6px;padding:9px 12px;font-size:12px}
 .error-banner .fix li{margin-left:14px;margin-top:3px;list-style:disc}
 hr{border:none;border-top:1px solid var(--border)}
-
-/* LOADING */
 #loading-overlay{display:none;position:fixed;inset:0;background:rgba(247,248,250,.96);z-index:300;flex-direction:column;align-items:center;justify-content:center}
 #loading-overlay.visible{display:flex}
 .loading-card{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:40px 48px;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,.12);max-width:420px;width:90%}
@@ -110,8 +165,6 @@ hr{border:none;border-top:1px solid var(--border)}
 .lsl-item.done{color:var(--green)}.lsl-item.active{color:var(--primary);font-weight:600}
 .lsl-dot{width:7px;height:7px;border-radius:50%;background:var(--border);flex-shrink:0;transition:background .3s}
 .lsl-item.done .lsl-dot{background:var(--green)}.lsl-item.active .lsl-dot{background:var(--primary)}
-
-/* RESULTS */
 #page-results{background:var(--bg);min-height:100vh}
 .rw{max-width:960px;margin:0 auto;padding:32px 24px 80px}
 .r-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow);margin-bottom:18px;overflow:hidden}
@@ -123,9 +176,12 @@ hr{border:none;border-top:1px solid var(--border)}
 .report-title{font-size:20px;font-weight:800;letter-spacing:-.3px;margin-bottom:4px}
 .report-persona{font-size:13px;color:var(--text-2);margin-bottom:20px}
 .report-persona strong{color:var(--text-1)}
-.report-top{display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:16px}
+.report-top{display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:12px}
+.report-btns{display:flex;gap:10px;flex-wrap:wrap}
 .dl-btn{padding:9px 18px;border-radius:7px;border:1px solid var(--border);background:var(--surface);color:var(--text-1);font-family:var(--font);font-size:13px;font-weight:600;cursor:pointer;display:flex;align-items:center;gap:7px;transition:all .2s}
 .dl-btn:hover{background:var(--primary);color:#fff;border-color:var(--primary)}
+.share-btn{padding:9px 18px;border-radius:7px;border:1px solid var(--primary);background:var(--primary-light);color:var(--primary);font-family:var(--font);font-size:13px;font-weight:600;cursor:pointer;display:flex;align-items:center;gap:7px;transition:all .2s}
+.share-btn:hover{background:var(--primary);color:#fff}
 .score-row{display:flex;align-items:center;gap:28px;flex-wrap:wrap}
 .score-circle{position:relative;width:110px;height:110px;flex-shrink:0}
 .score-circle svg{transform:rotate(-90deg)}
@@ -142,11 +198,10 @@ hr{border:none;border-top:1px solid var(--border)}
 .sec-label{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.7px;color:var(--text-3);margin-bottom:14px;display:flex;align-items:center;gap:8px}
 .sec-label::after{content:'';flex:1;height:1px;background:var(--border)}
 .frame-strip-wrap{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow);padding:18px 22px;margin-bottom:18px}
-.frame-strip{display:flex;gap:10px;overflow-x:auto;padding-bottom:6px;scroll-snap-type:x mandatory}
+.frame-strip{display:flex;gap:10px;overflow-x:auto;padding-bottom:6px}
 .frame-strip::-webkit-scrollbar{height:4px}
-.frame-strip::-webkit-scrollbar-track{background:var(--bg)}
 .frame-strip::-webkit-scrollbar-thumb{background:var(--border);border-radius:99px}
-.frame-card{flex-shrink:0;width:180px;border-radius:8px;overflow:hidden;border:2px solid var(--border);cursor:pointer;transition:all .2s;scroll-snap-align:start}
+.frame-card{flex-shrink:0;width:180px;border-radius:8px;overflow:hidden;border:2px solid var(--border);cursor:pointer;transition:all .2s}
 .frame-card:hover,.frame-card.fc-active{border-color:var(--primary);box-shadow:0 0 0 3px rgba(91,87,248,.15)}
 .frame-card.sev-high{border-color:var(--red)}.frame-card.sev-medium{border-color:var(--amber)}.frame-card.sev-low,.frame-card.sev-positive{border-color:var(--green)}
 .fc-img{position:relative}
@@ -154,7 +209,7 @@ hr{border:none;border-top:1px solid var(--border)}
 .fc-ts{position:absolute;bottom:5px;left:5px;background:rgba(0,0,0,.72);color:#fff;font-size:9.5px;font-weight:700;padding:2px 6px;border-radius:20px;font-family:'Courier New',monospace}
 .fc-dot{position:absolute;top:5px;right:5px;width:18px;height:18px;border-radius:50%;display:grid;place-items:center;font-size:9px;font-weight:800;color:#fff;border:1.5px solid rgba(255,255,255,.5)}
 .fc-dot.high{background:var(--red)}.fc-dot.medium{background:var(--amber)}.fc-dot.low,.fc-dot.positive{background:var(--green)}
-.fc-meta{padding:7px 9px;background:var(--surface)}
+.fc-meta{padding:7px 9px}
 .fc-step{font-size:10px;font-weight:700;color:var(--text-3);text-transform:uppercase;letter-spacing:.4px;margin-bottom:2px}
 .fc-lbl{font-size:11px;font-weight:600;color:var(--text-1);line-height:1.4}
 .ann-viewer{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow);margin-bottom:18px;overflow:hidden}
@@ -169,7 +224,6 @@ hr{border:none;border-top:1px solid var(--border)}
 .av-canvas-wrap img{max-width:100%;max-height:460px;display:block}
 .ann-pins{position:absolute;inset:0;pointer-events:none}
 .ann-pin{position:absolute;transform:translate(-50%,-50%);cursor:pointer;pointer-events:all;z-index:10}
-.ann-pin:hover{z-index:20}
 .ann-pin-ring{position:absolute;width:28px;height:28px;border-radius:50%;animation:pring 2s ease-out infinite;opacity:0;transform:translate(-50%,-50%);top:50%;left:50%}
 .ann-pin.high .ann-pin-ring{border:2px solid var(--red)}.ann-pin.medium .ann-pin-ring{border:2px solid var(--amber)}
 @keyframes pring{0%{transform:translate(-50%,-50%) scale(1);opacity:.6}100%{transform:translate(-50%,-50%) scale(2.4);opacity:0}}
@@ -178,7 +232,7 @@ hr{border:none;border-top:1px solid var(--border)}
 .ann-pin.high .ann-pin-dot{background:var(--red)}.ann-pin.medium .ann-pin-dot{background:var(--amber)}.ann-pin.low .ann-pin-dot,.ann-pin.positive .ann-pin-dot{background:var(--green)}
 .ann-tt{position:absolute;background:#13172b;color:#fff;border-radius:8px;padding:10px 13px;font-size:12px;width:190px;z-index:30;box-shadow:0 8px 24px rgba(0,0,0,.45);display:none;line-height:1.5;pointer-events:none}
 .ann-tt.visible{display:block}
-.att-sev{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.4px;margin-bottom:3px;opacity:.65}
+.att-sev{font-size:10px;font-weight:700;text-transform:uppercase;opacity:.65;margin-bottom:3px}
 .att-title{font-weight:700;margin-bottom:3px}.att-desc{font-size:11.5px;opacity:.8}
 .av-panel{border-left:1px solid var(--border);overflow-y:auto;max-height:460px}
 .av-panel-hd{padding:12px 15px;background:var(--bg);border-bottom:1px solid var(--border);font-size:11px;font-weight:700;color:var(--text-2);text-transform:uppercase;letter-spacing:.5px}
@@ -191,6 +245,8 @@ hr{border:none;border-top:1px solid var(--border)}
 .ai-body .aib-title{font-size:12.5px;font-weight:700;margin-bottom:3px}
 .ai-body .aib-desc{font-size:12px;color:var(--text-2);line-height:1.5}
 .ai-body .aib-quote{font-size:11.5px;color:var(--text-3);font-style:italic;margin-top:5px;padding-left:8px;border-left:2px solid var(--border)}
+/* No-annotation state */
+.ann-none{padding:20px;text-align:center;color:var(--green-dark);background:var(--green-light);border-radius:8px;font-size:13px;font-weight:600}
 .task-goal{background:var(--bg);border-radius:8px;padding:13px 15px;margin-bottom:18px;font-size:13px}
 .task-goal strong{display:block;font-size:11px;font-weight:700;color:var(--text-3);text-transform:uppercase;letter-spacing:.5px;margin-bottom:3px}
 .step-frame-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);margin-bottom:12px;overflow:hidden}
@@ -262,52 +318,35 @@ hr{border:none;border-top:1px solid var(--border)}
 .sum-box,.sum-full{background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:15px}
 .sb-lbl{font-size:11px;font-weight:700;color:var(--text-3);text-transform:uppercase;letter-spacing:.5px;margin-bottom:5px}
 .sb-text{font-size:13px;color:var(--text-2);line-height:1.7}
-
-/* ══════════════════════════════════
-   EXPERIENCE SCORECARD STYLES
-══════════════════════════════════ */
+/* SCORECARD */
 .scorecard-summary{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:22px}
 @media(max-width:600px){.scorecard-summary{grid-template-columns:1fr}}
 .sc-summary-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow);padding:18px 20px;display:flex;align-items:center;gap:16px}
 .sc-summary-dot{width:44px;height:44px;border-radius:50%;display:grid;place-items:center;flex-shrink:0;font-size:13px;font-weight:800;color:#fff}
 .sc-summary-dot.red{background:var(--red)}.sc-summary-dot.amber{background:var(--amber)}.sc-summary-dot.green{background:var(--green)}
-.sc-summary-info{}
 .sc-summary-label{font-size:11px;font-weight:700;color:var(--text-3);text-transform:uppercase;letter-spacing:.5px;margin-bottom:3px}
 .sc-summary-score{font-size:18px;font-weight:800;color:var(--text-1)}
 .sc-summary-max{font-size:12px;color:var(--text-3);font-weight:500}
 .sc-summary-edited{font-size:10.5px;color:var(--primary);margin-top:2px}
-
-/* Scorecard collapsible card */
 .sc-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow);margin-bottom:14px;overflow:hidden}
 .sc-card-hd{padding:16px 22px;display:flex;align-items:center;justify-content:space-between;cursor:pointer;user-select:none;transition:background .15s}
 .sc-card-hd:hover{background:var(--bg)}
 .sc-card-hd-left{display:flex;align-items:center;gap:12px}
-.sc-card-icon{font-size:18px}
-.sc-card-name{font-size:14px;font-weight:800}
-.sc-card-why{font-size:12px;color:var(--text-2);margin-top:2px}
+.sc-card-icon{font-size:18px}.sc-card-name{font-size:14px;font-weight:800}.sc-card-why{font-size:12px;color:var(--text-2);margin-top:2px}
 .sc-card-hd-right{display:flex;align-items:center;gap:12px}
 .sc-card-total{font-size:15px;font-weight:800}
-.sc-card-total .sct-dot{width:12px;height:12px;border-radius:50%;display:inline-block;margin-right:5px}
 .sc-chevron{font-size:12px;color:var(--text-3);transition:transform .2s}
 .sc-card.open .sc-chevron{transform:rotate(180deg)}
-.sc-card-body{display:none;border-top:1px solid var(--border)}
-.sc-card.open .sc-card-body{display:block}
-
-/* Sub-category block */
-.sc-subcat{border-bottom:1px solid var(--border)}
-.sc-subcat:last-child{border-bottom:none}
+.sc-card-body{display:none;border-top:1px solid var(--border)}.sc-card.open .sc-card-body{display:block}
+.sc-subcat{border-bottom:1px solid var(--border)}.sc-subcat:last-child{border-bottom:none}
 .sc-subcat-hd{padding:12px 22px;background:var(--bg);display:flex;align-items:center;justify-content:space-between}
 .sc-subcat-name{font-size:12px;font-weight:700;color:var(--text-1);text-transform:uppercase;letter-spacing:.4px}
 .sc-subcat-desc{font-size:11.5px;color:var(--text-3);margin-top:1px}
 .sc-subcat-total{font-size:12px;font-weight:700;color:var(--text-2)}
-
-/* Criterion row */
-.sc-criterion{padding:14px 22px;border-bottom:1px solid var(--border);background:var(--surface)}
-.sc-criterion:last-child{border-bottom:none}
+.sc-criterion{padding:14px 22px;border-bottom:1px solid var(--border);background:var(--surface)}.sc-criterion:last-child{border-bottom:none}
 .sc-crit-top{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:10px}
 .sc-crit-name{font-size:13px;font-weight:600;color:var(--text-1)}
 .sc-crit-right{display:flex;align-items:center;gap:10px;flex-shrink:0}
-/* dot scorer */
 .dot-scorer{display:flex;gap:5px;align-items:center}
 .ds-dot{width:20px;height:20px;border-radius:50%;border:2px solid var(--border);cursor:pointer;transition:all .18s;background:var(--bg)}
 .ds-dot:hover{transform:scale(1.15)}
@@ -318,18 +357,17 @@ hr{border:none;border-top:1px solid var(--border)}
 .sc-crit-score-label.red{color:var(--red)}.sc-crit-score-label.amber{color:var(--amber)}.sc-crit-score-label.green{color:var(--green)}
 .sc-ai-badge{font-size:10px;font-weight:600;color:var(--text-3);background:var(--bg);border:1px solid var(--border);padding:1px 7px;border-radius:20px}
 .sc-ai-badge.edited{color:var(--primary);background:var(--primary-light);border-color:#C7D2FE}
-/* evidence bullets */
 .sc-evidence{margin-bottom:10px}
-.sc-evidence-label{font-size:10.5px;font-weight:700;color:var(--text-3);text-transform:uppercase;letter-spacing:.4px;margin-bottom:5px;display:flex;align-items:center;gap:5px}
+.sc-evidence-label{font-size:10.5px;font-weight:700;color:var(--text-3);text-transform:uppercase;letter-spacing:.4px;margin-bottom:5px}
 .sc-evidence ul{list-style:none;display:flex;flex-direction:column;gap:4px}
 .sc-evidence li{font-size:12px;color:var(--text-2);padding-left:16px;position:relative;line-height:1.6}
 .sc-evidence li::before{content:'→';position:absolute;left:0;color:var(--text-3);font-size:11px}
-/* designer note */
-.sc-note-wrap{display:none}
-.sc-note-wrap.visible{display:block}
-.sc-note-label{font-size:10.5px;font-weight:700;color:var(--primary);text-transform:uppercase;letter-spacing:.4px;margin-bottom:5px;display:flex;align-items:center;gap:5px}
+.sc-note-wrap{display:none}.sc-note-wrap.visible{display:block}
+.sc-note-label{font-size:10.5px;font-weight:700;color:var(--primary);text-transform:uppercase;letter-spacing:.4px;margin-bottom:5px}
 .sc-note-wrap textarea{font-size:12.5px;padding:8px 10px;border-color:#C7D2FE;background:var(--primary-light);min-height:60px}
 .sc-note-wrap textarea:focus{border-color:var(--primary)}
+.saved-banner{display:none;align-items:center;gap:8px;background:var(--green-light);border:1px solid #BBF7D0;color:var(--green-dark);padding:10px 16px;border-radius:8px;font-size:13px;font-weight:600;margin-bottom:16px}
+.saved-banner.visible{display:flex}
 </style>
 </head>
 <body>
@@ -340,11 +378,24 @@ hr{border:none;border-top:1px solid var(--border)}
     SynthTest
   </a>
   <div class="nav-right">
+    <button class="history-btn" onclick="openHistory()">🕐 History<span class="history-count" id="historyCount" style="display:none"></span></button>
     <button class="back-btn" id="backBtn" onclick="goToInput()">← New Test</button>
     <span class="nav-badge">GPT-4o</span>
   </div>
 </nav>
 
+<!-- SHARE TOAST -->
+<div class="share-toast" id="shareToast">🔗 Link copied to clipboard!</div>
+
+<!-- HISTORY PANEL -->
+<div class="history-overlay" id="historyOverlay" onclick="closeHistory()"></div>
+<div class="history-panel" id="historyPanel">
+  <div class="history-panel-hd"><h3>🕐 Report History</h3><button class="history-close" onclick="closeHistory()">✕</button></div>
+  <div id="historyList" style="flex:1;overflow-y:auto;padding:12px"></div>
+  <div class="history-panel-ft"><button class="clear-all-btn" onclick="clearAllHistory()">🗑️ Clear All History</button></div>
+</div>
+
+<!-- LOADING -->
 <div id="loading-overlay">
   <div class="loading-card">
     <div class="loading-logo"><svg viewBox="0 0 24 24"><path d="M12 2a5 5 0 1 1 0 10A5 5 0 0 1 12 2zm0 12c5.33 0 8 2.67 8 4v2H4v-2c0-1.33 2.67-4 8-4z"/></svg></div>
@@ -411,7 +462,7 @@ hr{border:none;border-top:1px solid var(--border)}
     <div class="media-tabs">
       <button class="media-tab active" onclick="switchMediaTab('upload')">📁 Upload Video</button>
       <button class="media-tab" onclick="switchMediaTab('loom')">🎥 Loom</button>
-      <button class="media-tab" onclick="switchMediaTab('youtube')">▶️ YouTube</button>
+      <button class="media-tab" onclick="switchMediaTab('link')">🔗 Link</button>
       <button class="media-tab" onclick="switchMediaTab('screenshots')">🖼️ Screenshots</button>
     </div>
     <div id="tab-upload" class="tab-panel active">
@@ -419,14 +470,14 @@ hr{border:none;border-top:1px solid var(--border)}
         <input type="file" id="videoFile" accept="video/*" onchange="handleVideoFile(this.files[0])"/>
         <div class="drop-icon">🎬</div>
         <p><strong>Click to browse</strong> or drag & drop your video</p>
-        <p class="file-info">MP4, MOV, WebM · Frames auto-extracted & annotated</p>
+        <p class="file-info">MP4, MOV, WebM · Up to 8 frames extracted & annotated</p>
       </div>
       <div id="videoPreview" class="preview-wrap" style="display:none">
         <video id="videoEl" controls></video>
         <button class="preview-clear" onclick="clearMedia('upload')">✕ Remove</button>
       </div>
       <div id="frameHint" style="display:none;margin-top:12px;background:var(--primary-light);border:1px solid #C7D2FE;border-radius:8px;padding:10px 14px;font-size:12.5px;color:var(--primary)">
-        ✨ <strong>Frame extraction ON</strong> — frames extracted & annotated by GPT-4o
+        ✨ <strong>Frame extraction ON</strong> — up to 8 frames extracted & annotated by GPT-4o
       </div>
     </div>
     <div id="tab-loom" class="tab-panel">
@@ -436,11 +487,17 @@ hr{border:none;border-top:1px solid var(--border)}
         <button class="preview-clear" onclick="clearMedia('loom')">✕ Remove</button>
       </div>
     </div>
-    <div id="tab-youtube" class="tab-panel">
-      <div class="field"><label>YouTube URL</label><input type="text" id="ytUrl" placeholder="https://youtube.com/watch?v=…" oninput="previewYT(this.value)"/></div>
-      <div id="ytPreview" class="preview-wrap" style="display:none">
-        <iframe id="ytIframe" src="" allowfullscreen></iframe>
-        <button class="preview-clear" onclick="clearMedia('youtube')">✕ Remove</button>
+    <div id="tab-link" class="tab-panel">
+      <div class="field"><label>Figma, Prototype or any URL</label><input type="text" id="linkUrl" placeholder="https://www.figma.com/proto/… or any link" oninput="handleLinkInput(this.value)"/></div>
+      <div id="linkPreviewCard" class="link-preview-card">
+        <div class="lpc-top"><div class="lpc-icon" id="lpcIcon">🔗</div><div class="lpc-info"><strong id="lpcTitle">Link added</strong><span id="lpcType"></span></div></div>
+        <div class="lpc-url" id="lpcUrl"></div>
+        <a class="lpc-open" id="lpcOpen" href="#" target="_blank">↗ Open link</a>
+        <button class="preview-clear" style="position:static;margin-left:8px;border-radius:20px;padding:6px 12px" onclick="clearMedia('link')">✕ Remove</button>
+      </div>
+      <div id="figmaEmbedWrap" class="figma-embed-wrap" style="display:none">
+        <iframe id="figmaIframe" src="" allowfullscreen></iframe>
+        <button class="figma-embed-clear" onclick="clearFigmaEmbed()">✕ Hide preview</button>
       </div>
     </div>
     <div id="tab-screenshots" class="tab-panel">
@@ -476,6 +533,13 @@ hr{border:none;border-top:1px solid var(--border)}
 <!-- RESULTS PAGE -->
 <div id="page-results">
 <div class="rw">
+  <div class="saved-banner" id="savedBanner">✅ Report auto-saved to history</div>
+
+  <!-- Shared report banner (shown when viewing a shared link) -->
+  <div class="shared-banner" id="sharedBanner">
+    <div class="shared-banner-left">🔗 You are viewing a shared report</div>
+    <button class="shared-banner-close" onclick="document.getElementById('sharedBanner').classList.remove('visible')">✕</button>
+  </div>
 
   <div class="report-hd">
     <div class="report-top">
@@ -484,7 +548,10 @@ hr{border:none;border-top:1px solid var(--border)}
         <div class="report-title" id="r-title">UX Analysis Report</div>
         <div class="report-persona" id="r-persona"></div>
       </div>
-      <button class="dl-btn" onclick="downloadPDF()">⬇️ Download Full Report</button>
+      <div class="report-btns">
+        <button class="share-btn" onclick="shareReport()">🔗 Share Report</button>
+        <button class="dl-btn" onclick="downloadPDF()">⬇️ Download PDF</button>
+      </div>
     </div>
     <div class="score-row" style="margin-top:20px">
       <div class="score-circle">
@@ -492,449 +559,316 @@ hr{border:none;border-top:1px solid var(--border)}
           <circle class="sc-track" cx="55" cy="55" r="46"/>
           <circle class="sc-fill" id="scoreArc" cx="55" cy="55" r="46" stroke-dasharray="289" stroke-dashoffset="289"/>
         </svg>
-        <div class="score-center">
-          <div class="score-big" id="r-score">--</div>
-          <div class="score-denom">/ 100</div>
-        </div>
+        <div class="score-center"><div class="score-big" id="r-score">--</div><div class="score-denom">/ 100</div></div>
       </div>
-      <div>
-        <div class="score-adj" id="r-adj">--</div>
-        <div class="score-chips" id="r-chips"></div>
-      </div>
+      <div><div class="score-adj" id="r-adj">--</div><div class="score-chips" id="r-chips"></div></div>
     </div>
   </div>
 
-  <!-- Visual annotation strip (video + screenshots) -->
   <div id="r-visual-wrap" style="display:none">
     <div class="frame-strip-wrap">
       <div class="sec-label" id="r-visual-label">📽️ Extracted Frames</div>
       <div class="frame-strip" id="r-frame-strip"></div>
     </div>
     <div class="ann-viewer">
-      <div class="av-hd">
-        <div class="av-hd-title" id="av-title">Frame 1</div>
-        <div class="av-nav"><button onclick="prevFrame()">←</button><button onclick="nextFrame()">→</button></div>
-      </div>
+      <div class="av-hd"><div class="av-hd-title" id="av-title">Frame 1</div><div class="av-nav"><button onclick="prevFrame()">←</button><button onclick="nextFrame()">→</button></div></div>
       <div class="av-body">
-        <div class="av-canvas-wrap" id="avWrap">
-          <img id="avImg" src="" alt=""/>
-          <div class="ann-pins" id="annPins"></div>
-          <div class="ann-tt" id="annTT"></div>
-        </div>
-        <div class="av-panel">
-          <div class="av-panel-hd">Findings on this screen</div>
-          <div id="avPanel"></div>
-        </div>
+        <div class="av-canvas-wrap"><img id="avImg" src="" alt=""/><div class="ann-pins" id="annPins"></div><div class="ann-tt" id="annTT"></div></div>
+        <div class="av-panel"><div class="av-panel-hd">Findings on this screen</div><div id="avPanel"></div></div>
       </div>
     </div>
   </div>
 
-  <div class="r-card">
-    <div class="r-card-hd"><div class="r-card-title">🗺️ Task Walkthrough</div></div>
-    <div class="r-card-bd">
-      <div class="task-goal" id="r-goal"><strong>Goal</strong></div>
-      <div id="r-steps"></div>
-    </div>
-  </div>
+  <div class="r-card"><div class="r-card-hd"><div class="r-card-title">🗺️ Task Walkthrough</div></div><div class="r-card-bd"><div class="task-goal" id="r-goal"><strong>Goal</strong></div><div id="r-steps"></div></div></div>
+  <div class="r-card"><div class="r-card-hd"><div class="r-card-title">⚡ PURE Friction Score</div></div><div class="r-card-bd"><div class="pure-grid"><div class="pure-box"><div class="pure-num" id="r-pure-num">--</div><div class="pure-lbl">Friction Points</div></div><div class="pure-stats" id="r-pure-stats"></div></div><div class="pure-badges" id="r-pure-badges"></div></div></div>
+  <div class="r-card"><div class="r-card-hd"><div class="r-card-title">✅ Tasks Attempted</div></div><div class="r-card-bd" style="padding-top:8px;padding-bottom:8px"><table class="r-table"><thead><tr><th>#</th><th>Task</th><th>Status</th><th>Discovery</th></tr></thead><tbody id="r-tasks"></tbody></table></div></div>
+  <div class="r-card"><div class="r-card-hd"><div class="r-card-title">📐 Nielsen Heuristic Assessment</div></div><div class="r-card-bd" style="padding-top:8px;padding-bottom:8px"><table class="r-table"><thead><tr><th>Heuristic</th><th style="width:60px;text-align:center">Score</th><th>Observation</th></tr></thead><tbody id="r-nielsen"></tbody></table></div></div>
+  <div class="r-card"><div class="r-card-hd"><div class="r-card-title">♿ Accessibility Audit</div></div><div class="r-card-bd"><div class="a11y-grade-row"><div class="a11y-grade" id="r-a11y-grade">B</div><div class="a11y-info"><strong id="r-a11y-title"></strong><span id="r-a11y-sub"></span></div></div><div id="r-a11y-issues"></div></div></div>
+  <div class="r-card"><div class="r-card-hd"><div class="r-card-title">💡 Recommendations</div></div><div class="r-card-bd" id="r-recs"></div></div>
 
-  <div class="r-card">
-    <div class="r-card-hd"><div class="r-card-title">⚡ PURE Friction Score</div></div>
-    <div class="r-card-bd">
-      <div class="pure-grid">
-        <div class="pure-box"><div class="pure-num" id="r-pure-num">--</div><div class="pure-lbl">Friction Points</div></div>
-        <div class="pure-stats" id="r-pure-stats"></div>
-      </div>
-      <div class="pure-badges" id="r-pure-badges"></div>
-    </div>
-  </div>
-
-  <div class="r-card">
-    <div class="r-card-hd"><div class="r-card-title">✅ Tasks Attempted</div></div>
-    <div class="r-card-bd" style="padding-top:8px;padding-bottom:8px">
-      <table class="r-table"><thead><tr><th>#</th><th>Task</th><th>Status</th><th>Discovery</th></tr></thead><tbody id="r-tasks"></tbody></table>
-    </div>
-  </div>
-
-  <div class="r-card">
-    <div class="r-card-hd"><div class="r-card-title">📐 Nielsen Heuristic Assessment</div></div>
-    <div class="r-card-bd" style="padding-top:8px;padding-bottom:8px">
-      <table class="r-table"><thead><tr><th>Heuristic</th><th style="width:60px;text-align:center">Score</th><th>Observation</th></tr></thead><tbody id="r-nielsen"></tbody></table>
-    </div>
-  </div>
-
-  <div class="r-card">
-    <div class="r-card-hd"><div class="r-card-title">♿ Accessibility Audit</div></div>
-    <div class="r-card-bd">
-      <div class="a11y-grade-row">
-        <div class="a11y-grade" id="r-a11y-grade">B</div>
-        <div class="a11y-info"><strong id="r-a11y-title"></strong><span id="r-a11y-sub"></span></div>
-      </div>
-      <div id="r-a11y-issues"></div>
-    </div>
-  </div>
-
-  <div class="r-card">
-    <div class="r-card-hd"><div class="r-card-title">💡 Recommendations</div></div>
-    <div class="r-card-bd" id="r-recs"></div>
-  </div>
-
-  <!-- ══ EXPERIENCE SCORECARD ══ -->
   <div class="r-card">
     <div class="r-card-hd"><div class="r-card-title">🎯 Experience Scorecard <span style="font-size:11px;font-weight:500;color:var(--text-3);margin-left:6px">E1 · E2 · E3 — AI scored, designer editable</span></div></div>
     <div class="r-card-bd">
-      <!-- Summary bar -->
       <div class="scorecard-summary" id="sc-summary"></div>
-      <!-- E1 -->
-      <div class="sc-card" id="sc-e1">
-        <div class="sc-card-hd" onclick="toggleScorecard('e1')">
-          <div class="sc-card-hd-left">
-            <span class="sc-card-icon">⚡</span>
-            <div>
-              <div class="sc-card-name">E1: Efficiency Score</div>
-              <div class="sc-card-why">How easy is it to complete high-value tasks?</div>
-            </div>
-          </div>
-          <div class="sc-card-hd-right">
-            <div class="sc-card-total" id="sc-e1-total">--/45</div>
-            <span class="sc-chevron">▼</span>
-          </div>
-        </div>
-        <div class="sc-card-body" id="sc-e1-body"></div>
-      </div>
-      <!-- E2 -->
-      <div class="sc-card" id="sc-e2">
-        <div class="sc-card-hd" onclick="toggleScorecard('e2')">
-          <div class="sc-card-hd-left">
-            <span class="sc-card-icon">🎯</span>
-            <div>
-              <div class="sc-card-name">E2: Effectiveness Score</div>
-              <div class="sc-card-why">How well does the product meet JTBDs?</div>
-            </div>
-          </div>
-          <div class="sc-card-hd-right">
-            <div class="sc-card-total" id="sc-e2-total">--/45</div>
-            <span class="sc-chevron">▼</span>
-          </div>
-        </div>
-        <div class="sc-card-body" id="sc-e2-body"></div>
-      </div>
-      <!-- E3 -->
-      <div class="sc-card" id="sc-e3">
-        <div class="sc-card-hd" onclick="toggleScorecard('e3')">
-          <div class="sc-card-hd-left">
-            <span class="sc-card-icon">✨</span>
-            <div>
-              <div class="sc-card-name">E3: Enjoyable Score</div>
-              <div class="sc-card-why">How polished and trustworthy does the experience feel?</div>
-            </div>
-          </div>
-          <div class="sc-card-hd-right">
-            <div class="sc-card-total" id="sc-e3-total">--/40</div>
-            <span class="sc-chevron">▼</span>
-          </div>
-        </div>
-        <div class="sc-card-body" id="sc-e3-body"></div>
-      </div>
+      <div class="sc-card" id="sc-e1"><div class="sc-card-hd" onclick="toggleScorecard('e1')"><div class="sc-card-hd-left"><span class="sc-card-icon">⚡</span><div><div class="sc-card-name">E1: Efficiency Score</div><div class="sc-card-why">How easy is it to complete high-value tasks?</div></div></div><div class="sc-card-hd-right"><div class="sc-card-total" id="sc-e1-total">--/45</div><span class="sc-chevron">▼</span></div></div><div class="sc-card-body" id="sc-e1-body"></div></div>
+      <div class="sc-card" id="sc-e2"><div class="sc-card-hd" onclick="toggleScorecard('e2')"><div class="sc-card-hd-left"><span class="sc-card-icon">🎯</span><div><div class="sc-card-name">E2: Effectiveness Score</div><div class="sc-card-why">How well does the product meet JTBDs?</div></div></div><div class="sc-card-hd-right"><div class="sc-card-total" id="sc-e2-total">--/40</div><span class="sc-chevron">▼</span></div></div><div class="sc-card-body" id="sc-e2-body"></div></div>
+      <div class="sc-card" id="sc-e3"><div class="sc-card-hd" onclick="toggleScorecard('e3')"><div class="sc-card-hd-left"><span class="sc-card-icon">✨</span><div><div class="sc-card-name">E3: Enjoyable Score</div><div class="sc-card-why">How polished and trustworthy does the experience feel?</div></div></div><div class="sc-card-hd-right"><div class="sc-card-total" id="sc-e3-total">--/40</div><span class="sc-chevron">▼</span></div></div><div class="sc-card-body" id="sc-e3-body"></div></div>
     </div>
   </div>
 
-  <div class="r-card">
-    <div class="r-card-hd"><div class="r-card-title">📋 Summary</div></div>
-    <div class="r-card-bd">
-      <div class="sum-grid" id="r-sum-grid"></div>
-      <div class="sum-full" id="r-sum-full"></div>
-    </div>
-  </div>
-
+  <div class="r-card"><div class="r-card-hd"><div class="r-card-title">📋 Summary</div></div><div class="r-card-bd"><div class="sum-grid" id="r-sum-grid"></div><div class="sum-full" id="r-sum-full"></div></div></div>
 </div>
 </div>
 
 <script>
-/* ══════════════════════════
-   SCORECARD DEFINITIONS
-══════════════════════════ */
-const SCORECARDS = {
-  e1: {
-    id:'e1', label:'E1: Efficiency', icon:'⚡', max:45,
-    subcats:[
-      { name:'Cognitive Load / Clarity', desc:'"How easy is it to understand what to do and why?"',
-        criteria:['Number of Decisions','Information Density','Jargon / Terminology','Unclear Next Steps'] },
-      { name:'Flow Continuity', desc:'"How smoothly does this flow move users toward their goal?"',
-        criteria:['Dead Ends','Repeated Steps','Context Switching','Unexpected Redirects','Progress Indication / Clarity'] }
-    ]
-  },
-  e2: {
-    id:'e2', label:'E2: Effectiveness', icon:'🎯', max:45,
-    subcats:[
-      { name:'JTBD Alignment', desc:'"How directly does this product help users achieve their JTBDs?"',
-        criteria:['Is the "why" clear?','Is success defined?','Does the flow reflect user intent?','No irrelevant or repetitive steps'] },
-      { name:'Communication', desc:'"How clearly does the product communicate what\'s happening?"',
-        criteria:['Low time to value','Includes contextual guidance','Has journey clarity','Has clear progress indicators'] }
-    ]
-  },
-  e3: {
-    id:'e3', label:'E3: Enjoyable', icon:'✨', max:40,
-    subcats:[
-      { name:'Perception of Value / Trust', desc:'"How trustworthy and polished does this experience feel?"',
-        criteria:['Visual Polish','Content Quality','Clear Error States','Low Friction'] },
-      { name:'Communication', desc:'"How well does the experience create memorable moments?"',
-        criteria:['Education Touchpoints','"Wow" Moments','Clear Success Moments','Loading States'] }
-    ]
-  }
+/* ══ CONFIG ══ */
+const API_ENDPOINT = 'https://api.openai.com/v1/chat/completions';
+const API_MODEL    = 'gpt-4o';
+
+/* ══ SCORECARDS — FIXED MATH ══
+   E1: 9 criteria × 5 = 45 ✅
+   E2: 8 criteria × 5 = 40 ✅ (was incorrectly 45)
+   E3: 8 criteria × 5 = 40 ✅
+══ */
+const SCORECARDS={
+  e1:{id:'e1',label:'E1: Efficiency',icon:'⚡',max:45,subcats:[
+    {name:'Cognitive Load / Clarity',desc:'"How easy is it to understand what to do and why?"',criteria:['Number of Decisions','Information Density','Jargon / Terminology','Unclear Next Steps']},
+    {name:'Flow Continuity',desc:'"How smoothly does this flow move users toward their goal?"',criteria:['Dead Ends','Repeated Steps','Context Switching','Unexpected Redirects','Progress Indication / Clarity']}
+  ]},
+  e2:{id:'e2',label:'E2: Effectiveness',icon:'🎯',max:40,subcats:[ /* ← FIXED: was 45 */
+    {name:'JTBD Alignment',desc:'"How directly does this help users achieve their JTBDs?"',criteria:['Is the "why" clear?','Is success defined?','Does the flow reflect user intent?','No irrelevant or repetitive steps']},
+    {name:'Communication',desc:'"How clearly does the product communicate what\'s happening?"',criteria:['Low time to value','Includes contextual guidance','Has journey clarity','Has clear progress indicators']}
+  ]},
+  e3:{id:'e3',label:'E3: Enjoyable',icon:'✨',max:40,subcats:[
+    {name:'Perception of Value / Trust',desc:'"How trustworthy and polished does this feel?"',criteria:['Visual Polish','Content Quality','Clear Error States','Low Friction']},
+    {name:'Communication',desc:'"How well does it create memorable moments?"',criteria:['Education Touchpoints','"Wow" Moments','Clear Success Moments','Loading States']}
+  ]}
 };
 
-// Live scorecard state — scores & notes per criterion
-// scorecardState[cardId][subcatIndex][critIndex] = { aiScore, currentScore, edited, note }
-let scorecardState = {};
+let scorecardState={};
+function initScorecardState(d){scorecardState={};['e1','e2','e3'].forEach(id=>{scorecardState[id]={};SCORECARDS[id].subcats.forEach((s,si)=>{scorecardState[id][si]={};s.criteria.forEach((_,ci)=>{const a=d?.[id]?.[si]?.[ci]?.score??3;scorecardState[id][si][ci]={aiScore:a,currentScore:a,edited:false,note:'',evidence:d?.[id]?.[si]?.[ci]?.evidence??[]};});});});}
+function getScoreColor(s){return s<=2?'red':s<=4?'amber':'green';}
+function getCardTotal(id){let t=0;SCORECARDS[id].subcats.forEach((s,si)=>s.criteria.forEach((_,ci)=>{t+=scorecardState[id][si][ci].currentScore;}));return t;}
+function getSubcatTotal(id,si){let t=0;SCORECARDS[id].subcats[si].criteria.forEach((_,ci)=>{t+=scorecardState[id][si][ci].currentScore;});return t;}
+function renderScorecards(){['e1','e2','e3'].forEach(id=>renderScorecard(id));renderScorecardSummary();}
+function renderScorecard(id){const def=SCORECARDS[id];document.getElementById(`sc-${id}-body`).innerHTML=def.subcats.map((sub,si)=>`<div class="sc-subcat"><div class="sc-subcat-hd"><div><div class="sc-subcat-name">${sub.name}</div><div class="sc-subcat-desc">${sub.desc}</div></div><div class="sc-subcat-total" id="sst-${id}-${si}">${getSubcatTotal(id,si)}/${sub.criteria.length*5}</div></div>${sub.criteria.map((crit,ci)=>renderCriterion(id,si,ci,crit)).join('')}</div>`).join('');updateCardTotal(id);}
+function renderCriterion(id,si,ci,cn){const s=scorecardState[id][si][ci];const col=getScoreColor(s.currentScore);const uid=`${id}-${si}-${ci}`;const dots=[1,2,3,4,5].map(n=>`<div class="ds-dot ${n<=s.currentScore?'filled-'+n:''}" onclick="setScore('${id}',${si},${ci},${n})"></div>`).join('');const ev=s.evidence.length>0?`<div class="sc-evidence"><div class="sc-evidence-label">🤖 AI Evidence</div><ul>${s.evidence.map(e=>`<li>${e}</li>`).join('')}</ul></div>`:'';return`<div class="sc-criterion" id="crit-${uid}"><div class="sc-crit-top"><div class="sc-crit-name">${cn}</div><div class="sc-crit-right"><span class="sc-ai-badge ${s.edited?'edited':''}">${s.edited?`✏️ edited (AI:${s.aiScore})`:'🤖 AI scored'}</span><div class="dot-scorer">${dots}</div><div class="sc-crit-score-label ${col}">${s.currentScore}/5</div></div></div>${ev}<div class="sc-note-wrap ${s.edited?'visible':''}" id="note-wrap-${uid}"><div class="sc-note-label">✏️ Designer Note</div><textarea placeholder="Add your justification…" onchange="setNote('${id}',${si},${ci},this.value)">${s.note}</textarea></div></div>`;}
+function setScore(id,si,ci,v){const s=scorecardState[id][si][ci];s.currentScore=v;s.edited=v!==s.aiScore;const el=document.getElementById(`crit-${id}-${si}-${ci}`);if(el){el.outerHTML=renderCriterion(id,si,ci,SCORECARDS[id].subcats[si].criteria[ci]);const t=document.querySelector(`#note-wrap-${id}-${si}-${ci} textarea`);if(t)t.value=s.note;}updateCardTotal(id);updateSubcatTotal(id,si);renderScorecardSummary();}
+function setNote(id,si,ci,v){scorecardState[id][si][ci].note=v;}
+function updateCardTotal(id){const el=document.getElementById(`sc-${id}-total`);if(el)el.textContent=`${getCardTotal(id)}/${SCORECARDS[id].max}`;}
+function updateSubcatTotal(id,si){const el=document.getElementById(`sst-${id}-${si}`);if(el)el.textContent=`${getSubcatTotal(id,si)}/${SCORECARDS[id].subcats[si].criteria.length*5}`;}
+function toggleScorecard(id){document.getElementById(`sc-${id}`).classList.toggle('open');}
+function renderScorecardSummary(){document.getElementById('sc-summary').innerHTML=['e1','e2','e3'].map(id=>{const def=SCORECARDS[id];const t=getCardTotal(id);const col=t/def.max>=0.7?'green':t/def.max>=0.5?'amber':'red';const ec=countEdited(id);return`<div class="sc-summary-card"><div class="sc-summary-dot ${col}">${t}</div><div><div class="sc-summary-label">${def.label}</div><div><span class="sc-summary-score">${t}</span><span class="sc-summary-max">/${def.max}</span></div>${ec>0?`<div class="sc-summary-edited">✏️ ${ec} edited</div>`:''}</div></div>`;}).join('');}
+function countEdited(id){let c=0;SCORECARDS[id].subcats.forEach((s,si)=>s.criteria.forEach((_,ci)=>{if(scorecardState[id][si][ci].edited)c++;}));return c;}
 
-function initScorecardState(aiData) {
-  scorecardState = {};
-  ['e1','e2','e3'].forEach(id => {
-    scorecardState[id] = {};
-    SCORECARDS[id].subcats.forEach((sub, si) => {
-      scorecardState[id][si] = {};
-      sub.criteria.forEach((crit, ci) => {
-        const aiScore = aiData?.[id]?.[si]?.[ci]?.score ?? 3;
-        scorecardState[id][si][ci] = {
-          aiScore,
-          currentScore: aiScore,
-          edited: false,
-          note: '',
-          evidence: aiData?.[id]?.[si]?.[ci]?.evidence ?? []
-        };
-      });
+/* ══ SHAREABLE REPORT URLS ══ */
+function shareReport(){
+  if(!analysisResult)return;
+  try{
+    const payload={
+      r: analysisResult,
+      sc: scorecardState,
+      af: annotatedFrames.map(f=>({
+        dataUrl: f.dataUrl,
+        timestamp: f.timestamp,
+        label: f.label,
+        severity: f.severity,
+        annotations: f.annotations
+      })),
+      mt: currentMediaTab,
+      iss: currentMediaTab==='screenshots'
+    };
+    const json = JSON.stringify(payload);
+    const compressed = btoa(encodeURIComponent(json));
+    const url = `${window.location.origin}${window.location.pathname}?report=${compressed}`;
+    navigator.clipboard.writeText(url).then(()=>{
+      showToast('🔗 Link copied to clipboard!');
+    }).catch(()=>{
+      // Fallback for browsers that block clipboard
+      prompt('Copy this link to share:', url);
     });
-  });
-}
-
-function getScoreColor(score) {
-  if (score <= 2) return 'red';
-  if (score <= 4) return 'amber';
-  return 'green';
-}
-
-function getCardTotal(id) {
-  let total = 0;
-  SCORECARDS[id].subcats.forEach((sub, si) => {
-    sub.criteria.forEach((_, ci) => {
-      total += scorecardState[id][si][ci].currentScore;
-    });
-  });
-  return total;
-}
-
-function getSubcatTotal(id, si) {
-  let total = 0;
-  SCORECARDS[id].subcats[si].criteria.forEach((_, ci) => {
-    total += scorecardState[id][si][ci].currentScore;
-  });
-  return total;
-}
-
-/* ── RENDER SCORECARDS ── */
-function renderScorecards() {
-  ['e1','e2','e3'].forEach(id => renderScorecard(id));
-  renderScorecardSummary();
-}
-
-function renderScorecard(id) {
-  const def = SCORECARDS[id];
-  const body = document.getElementById(`sc-${id}-body`);
-  body.innerHTML = def.subcats.map((sub, si) => `
-    <div class="sc-subcat">
-      <div class="sc-subcat-hd">
-        <div>
-          <div class="sc-subcat-name">${sub.name}</div>
-          <div class="sc-subcat-desc">${sub.desc}</div>
-        </div>
-        <div class="sc-subcat-total" id="sst-${id}-${si}">
-          ${getSubcatTotal(id, si)}/${sub.criteria.length * 5}
-        </div>
-      </div>
-      ${sub.criteria.map((crit, ci) => renderCriterion(id, si, ci, crit)).join('')}
-    </div>
-  `).join('');
-  updateCardTotal(id);
-}
-
-function renderCriterion(id, si, ci, critName) {
-  const state = scorecardState[id][si][ci];
-  const score = state.currentScore;
-  const col = getScoreColor(score);
-  const edited = state.edited;
-  const uid = `${id}-${si}-${ci}`;
-  const dots = [1,2,3,4,5].map(n => `
-    <div class="ds-dot ${n <= score ? 'filled-'+n : ''}"
-      onclick="setScore('${id}',${si},${ci},${n})"
-      title="${n}/5"></div>
-  `).join('');
-  const evidenceHtml = state.evidence.length > 0 ? `
-    <div class="sc-evidence">
-      <div class="sc-evidence-label">🤖 AI Evidence</div>
-      <ul>${state.evidence.map(e => `<li>${e}</li>`).join('')}</ul>
-    </div>` : '';
-  const noteHtml = `
-    <div class="sc-note-wrap ${edited ? 'visible' : ''}" id="note-wrap-${uid}">
-      <div class="sc-note-label">✏️ Designer Note</div>
-      <textarea placeholder="Add your justification for changing this score…"
-        onchange="setNote('${id}',${si},${ci},this.value)"
-        onfocus="this.placeholder=''">${state.note}</textarea>
-    </div>`;
-  return `
-    <div class="sc-criterion" id="crit-${uid}">
-      <div class="sc-crit-top">
-        <div class="sc-crit-name">${critName}</div>
-        <div class="sc-crit-right">
-          <span class="sc-ai-badge ${edited ? 'edited' : ''}" id="badge-${uid}">
-            ${edited ? `✏️ edited (AI: ${state.aiScore})` : '🤖 AI scored'}
-          </span>
-          <div class="dot-scorer">${dots}</div>
-          <div class="sc-crit-score-label ${col}" id="score-lbl-${uid}">${score}/5</div>
-        </div>
-      </div>
-      ${evidenceHtml}
-      ${noteHtml}
-    </div>`;
-}
-
-function setScore(id, si, ci, newScore) {
-  const state = scorecardState[id][si][ci];
-  state.currentScore = newScore;
-  state.edited = newScore !== state.aiScore;
-  // Re-render just this criterion
-  const critEl = document.getElementById(`crit-${id}-${si}-${ci}`);
-  if (critEl) {
-    critEl.outerHTML = renderCriterion(id, si, ci, SCORECARDS[id].subcats[si].criteria[ci]);
-    // Restore note value after re-render
-    const noteTA = document.querySelector(`#note-wrap-${id}-${si}-${ci} textarea`);
-    if (noteTA) noteTA.value = state.note;
+  }catch(e){
+    showToast('⚠️ Report too large to share via URL — download PDF instead');
   }
-  updateCardTotal(id);
-  updateSubcatTotal(id, si);
-  renderScorecardSummary();
 }
 
-function setNote(id, si, ci, val) {
-  scorecardState[id][si][ci].note = val;
+function showToast(msg){
+  const t=document.getElementById('shareToast');
+  t.textContent=msg;
+  t.classList.add('visible');
+  setTimeout(()=>t.classList.remove('visible'),3000);
 }
 
-function updateCardTotal(id) {
-  const total = getCardTotal(id);
-  const max = SCORECARDS[id].max;
-  const col = getScoreColor(Math.round((total / max) * 5));
-  const el = document.getElementById(`sc-${id}-total`);
-  if (el) el.textContent = `${total}/${max}`;
+function checkForSharedReport(){
+  const params=new URLSearchParams(window.location.search);
+  const encoded=params.get('report');
+  if(!encoded)return;
+  try{
+    const json=decodeURIComponent(atob(encoded));
+    const payload=JSON.parse(json);
+    analysisResult=payload.r;
+    scorecardState=payload.sc||{};
+    annotatedFrames=payload.af||[];
+    currentMediaTab=payload.mt||'upload';
+    // Init scorecard with saved state
+    if(!Object.keys(scorecardState).length){
+      initScorecardState(analysisResult.scorecard);
+    }
+    renderResults(analysisResult, annotatedFrames.length>0, payload.iss||false);
+    renderScorecards();
+    document.getElementById('sharedBanner').classList.add('visible');
+    goToResults();
+    // Clean URL without reloading
+    window.history.replaceState({},'',window.location.pathname);
+  }catch(e){
+    console.warn('Could not load shared report:', e.message);
+  }
 }
 
-function updateSubcatTotal(id, si) {
-  const sub = SCORECARDS[id].subcats[si];
-  const total = getSubcatTotal(id, si);
-  const el = document.getElementById(`sst-${id}-${si}`);
-  if (el) el.textContent = `${total}/${sub.criteria.length * 5}`;
+/* ══ HISTORY ══ */
+const HISTORY_KEY='synthtest_history';const MAX_HISTORY=10;
+function getHistory(){try{return JSON.parse(localStorage.getItem(HISTORY_KEY)||'[]');}catch(e){return[];}}
+function saveHistory(h){localStorage.setItem(HISTORY_KEY,JSON.stringify(h));}
+function saveReportToHistory(){
+  if(!analysisResult)return;
+  const h=getHistory();
+  // Strip frame dataUrls from history to save space — keep metadata only
+  const lightFrames=annotatedFrames.map(f=>({timestamp:f.timestamp,label:f.label,severity:f.severity,annotations:f.annotations,dataUrl:f.dataUrl}));
+  h.unshift({id:Date.now(),date:new Date().toLocaleString('en-GB',{day:'numeric',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit'}),title:analysisResult.report_title||'UX Analysis Report',persona:getPersonaName(),score:analysisResult.score??0,result:analysisResult,scorecardState:JSON.parse(JSON.stringify(scorecardState)),annotatedFrames:lightFrames,mediaTab:currentMediaTab,isScreenshots:currentMediaTab==='screenshots'});
+  if(h.length>MAX_HISTORY)h.splice(MAX_HISTORY);
+  saveHistory(h);updateHistoryCount();
 }
-
-function toggleScorecard(id) {
-  const card = document.getElementById(`sc-${id}`);
-  card.classList.toggle('open');
-}
-
-function renderScorecardSummary() {
-  const container = document.getElementById('sc-summary');
-  container.innerHTML = ['e1','e2','e3'].map(id => {
-    const def = SCORECARDS[id];
-    const total = getCardTotal(id);
-    const pct = total / def.max;
-    const col = pct >= 0.7 ? 'green' : pct >= 0.5 ? 'amber' : 'red';
-    const editedCount = countEdited(id);
-    return `
-      <div class="sc-summary-card">
-        <div class="sc-summary-dot ${col}">${total}</div>
-        <div class="sc-summary-info">
-          <div class="sc-summary-label">${def.label}</div>
-          <div><span class="sc-summary-score">${total}</span><span class="sc-summary-max">/${def.max}</span></div>
-          ${editedCount > 0 ? `<div class="sc-summary-edited">✏️ ${editedCount} score${editedCount > 1 ? 's' : ''} edited</div>` : ''}
+function updateHistoryCount(){const h=getHistory();const b=document.getElementById('historyCount');if(h.length>0){b.textContent=h.length;b.style.display='';}else b.style.display='none';}
+function openHistory(){renderHistoryList();document.getElementById('historyOverlay').classList.add('visible');document.getElementById('historyPanel').classList.add('open');}
+function closeHistory(){document.getElementById('historyOverlay').classList.remove('visible');document.getElementById('historyPanel').classList.remove('open');}
+function renderHistoryList(){
+  const h=getHistory();const c=document.getElementById('historyList');
+  if(!h.length){c.innerHTML=`<div class="history-empty"><div class="he-icon">📂</div><p>No reports saved yet.</p></div>`;return;}
+  c.innerHTML=h.map(e=>{
+    const col=e.score>=75?'green':e.score>=50?'amber':'red';
+    return`<div class="history-item" onclick="loadHistoryEntry(${e.id})">
+      <div class="hi-top">
+        <div class="hi-title">${e.title}</div>
+        <div class="hi-actions">
+          <button class="hi-share" onclick="event.stopPropagation();shareHistoryEntry(${e.id})" title="Share">🔗</button>
+          <button class="hi-delete" onclick="event.stopPropagation();deleteHistoryEntry(${e.id})" title="Delete">✕</button>
         </div>
-      </div>`;
+      </div>
+      <div class="hi-meta">
+        <span class="hi-score ${col}">${e.score}/100</span>
+        <span class="hi-persona">👤 ${e.persona}</span>
+        <span class="hi-date">${e.date}</span>
+      </div>
+    </div>`;
   }).join('');
 }
-
-function countEdited(id) {
-  let count = 0;
-  SCORECARDS[id].subcats.forEach((sub, si) => {
-    sub.criteria.forEach((_, ci) => {
-      if (scorecardState[id][si][ci].edited) count++;
-    });
-  });
-  return count;
+function loadHistoryEntry(id){
+  const h=getHistory();const e=h.find(x=>x.id===id);if(!e)return;
+  closeHistory();
+  analysisResult=e.result;
+  annotatedFrames=e.annotatedFrames||[];
+  currentMediaTab=e.mediaTab||'upload';
+  initScorecardState(e.result.scorecard);
+  if(e.scorecardState)scorecardState=e.scorecardState;
+  renderResults(e.result,annotatedFrames.length>0,e.isScreenshots);
+  renderScorecards();
+  document.getElementById('savedBanner').classList.remove('visible');
+  goToResults();
 }
+function shareHistoryEntry(id){
+  const h=getHistory();const e=h.find(x=>x.id===id);if(!e)return;
+  // Temporarily set state to share this entry
+  const savedResult=analysisResult;
+  const savedFrames=annotatedFrames;
+  const savedSC=scorecardState;
+  analysisResult=e.result;
+  annotatedFrames=e.annotatedFrames||[];
+  scorecardState=e.scorecardState||{};
+  shareReport();
+  // Restore
+  analysisResult=savedResult;
+  annotatedFrames=savedFrames;
+  scorecardState=savedSC;
+}
+function deleteHistoryEntry(id){saveHistory(getHistory().filter(e=>e.id!==id));updateHistoryCount();renderHistoryList();}
+function clearAllHistory(){if(!confirm('Clear all saved reports?'))return;localStorage.removeItem(HISTORY_KEY);updateHistoryCount();renderHistoryList();}
 
-/* ══════════════════════════
-   STATE
-══════════════════════════ */
+/* ══ STATE ══ */
 let currentMediaTab='upload',currentPersonaTab='form';
 let uploadedVideoFile=null,uploadedScreenshots=[],analysisResult=null;
-let annotatedFrames=[],currentFrameIdx=0;
+let annotatedFrames=[],currentFrameIdx=0,currentLinkUrl='';
 
-/* ── PAGE NAV ── */
 function goToInput(){document.getElementById('page-input').style.display='block';document.getElementById('page-results').style.display='none';document.getElementById('backBtn').style.display='none';window.scrollTo({top:0,behavior:'smooth'});}
 function goToResults(){document.getElementById('page-input').style.display='none';document.getElementById('page-results').style.display='block';document.getElementById('backBtn').style.display='flex';window.scrollTo({top:0,behavior:'instant'});}
 
-/* ── API KEY ── */
+/* ══ KEY ══ */
 function toggleKey(){const e=document.getElementById('apiKey');e.type=e.type==='password'?'text':'password';}
-function saveKey(){const key=document.getElementById('apiKey').value.trim();if(!key){showError('No Key Entered','Please paste your API key first.');return;}const ok=/^sk-[A-Za-z0-9]{40,60}$/.test(key)||/^sk-proj-[A-Za-z0-9_\-]{80,}$/.test(key);if(!ok){showError('Invalid Key Format',`"${key.slice(0,12)}…" doesn't look valid.`,['Legacy: sk- + ~48 chars','New: sk-proj- + 120+ chars']);return;}localStorage.setItem('synthtest_api_key',key);showKeySaved(`${key.slice(0,8)}…${key.slice(-4)}`);clearError();}
+function saveKey(){const k=document.getElementById('apiKey').value.trim();if(!k){showError('No Key','Please paste your OpenAI key.');return;}const ok=/^sk-[A-Za-z0-9]{40,60}$/.test(k)||/^sk-proj-[A-Za-z0-9_\-]{80,}$/.test(k);if(!ok){showError('Invalid Key Format',`"${k.slice(0,12)}…" doesn't look like a valid OpenAI key.`,['Keys start with sk- or sk-proj-','Get yours at platform.openai.com/api-keys']);return;}localStorage.setItem('synthtest_api_key',k);showKeySaved(`${k.slice(0,8)}…${k.slice(-4)}`);clearError();}
 function clearKey(){localStorage.removeItem('synthtest_api_key');document.getElementById('apiKey').value='';document.getElementById('keyStatus').classList.remove('visible');document.getElementById('clearKeyBtn').classList.remove('visible');}
 function showKeySaved(m){document.getElementById('keyStatusText').textContent=`Key saved (${m})`;document.getElementById('keyStatus').classList.add('visible');document.getElementById('clearKeyBtn').classList.add('visible');}
 function loadSavedKey(){const s=localStorage.getItem('synthtest_api_key');if(s){document.getElementById('apiKey').value=s;showKeySaved(`${s.slice(0,8)}…${s.slice(-4)}`);}}
 
-/* ── LOADING ── */
-const BASE_STEPS=[{id:'ls1',label:'Reading persona & context',pct:10},{id:'ls2',label:'Connecting to GPT-4o',pct:22},{id:'ls3',label:'Simulating user walkthrough',pct:42},{id:'ls4',label:'Scoring E1/E2/E3 criteria',pct:62},{id:'ls5',label:'Generating recommendations',pct:80},{id:'ls6',label:'Building report',pct:95}];
-const VIDEO_STEPS=[{id:'ls0',label:'Extracting video frames',pct:8},{id:'ls1',label:'Sending frames to GPT-4o',pct:18},{id:'ls2',label:'Simulating user walkthrough',pct:38},{id:'ls3',label:'Scoring E1/E2/E3 criteria',pct:60},{id:'ls4',label:'Placing frame annotations',pct:76},{id:'ls5',label:'Generating recommendations',pct:88},{id:'ls6',label:'Building report',pct:96}];
-const SS_STEPS=[{id:'ls1',label:'Reading screenshots',pct:10},{id:'ls2',label:'Sending images to GPT-4o',pct:25},{id:'ls3',label:'Analysing each screen',pct:48},{id:'ls4',label:'Scoring E1/E2/E3 criteria',pct:68},{id:'ls5',label:'Generating recommendations',pct:85},{id:'ls6',label:'Building report',pct:95}];
+/* ══ LOADING ══ */
+const BASE_STEPS=[{id:'ls1',label:'Reading persona & context',pct:10},{id:'ls2',label:'Connecting to GPT-4o',pct:22},{id:'ls3',label:'Simulating user walkthrough',pct:44},{id:'ls4',label:'Scoring E1/E2/E3 criteria',pct:64},{id:'ls5',label:'Generating recommendations',pct:82},{id:'ls6',label:'Building report',pct:96}];
+const VIDEO_STEPS=[{id:'lv0',label:'Extracting video frames',pct:8},{id:'lv1',label:'Sending frames to GPT-4o',pct:20},{id:'lv2',label:'Simulating user walkthrough',pct:40},{id:'lv3',label:'Annotating every frame',pct:58},{id:'lv4',label:'Scoring E1/E2/E3 criteria',pct:74},{id:'lv5',label:'Generating recommendations',pct:88},{id:'lv6',label:'Building report',pct:96}];
+const SS_STEPS=[{id:'ls1',label:'Reading screenshots',pct:10},{id:'ls2',label:'Sending images to GPT-4o',pct:24},{id:'ls3',label:'Annotating every screen',pct:44},{id:'ls4',label:'Scoring E1/E2/E3 criteria',pct:64},{id:'ls5',label:'Generating recommendations',pct:82},{id:'ls6',label:'Building report',pct:96}];
 let loadingSteps=BASE_STEPS,loadingTimer=null,loadingIdx=0;
-function initLoadingSteps(type){loadingSteps=type==='video'?VIDEO_STEPS:type==='screenshots'?SS_STEPS:BASE_STEPS;document.getElementById('loadingStepsList').innerHTML=loadingSteps.map(s=>`<div class="lsl-item" id="${s.id}"><span class="lsl-dot"></span>${s.label}</div>`).join('');document.getElementById('loadingSub').textContent=type==='video'?'Extracting frames & simulating persona…':type==='screenshots'?'Analysing screenshots as the user persona…':'Simulating your user persona…';}
+function initLoadingSteps(type){loadingSteps=type==='video'?VIDEO_STEPS:type==='screenshots'?SS_STEPS:BASE_STEPS;document.getElementById('loadingStepsList').innerHTML=loadingSteps.map(s=>`<div class="lsl-item" id="${s.id}"><span class="lsl-dot"></span>${s.label}</div>`).join('');document.getElementById('loadingSub').textContent=type==='video'?'Extracting frames & annotating every screen…':type==='screenshots'?'Annotating every screenshot…':'Simulating your user persona…';}
 function showLoading(type='base'){initLoadingSteps(type);loadingIdx=0;setLoadingStep(0);document.getElementById('loading-overlay').classList.add('visible');loadingTimer=setInterval(()=>{if(loadingIdx<loadingSteps.length-1){loadingIdx++;setLoadingStep(loadingIdx);}},type==='video'?2200:1800);}
 function hideLoading(){clearInterval(loadingTimer);document.getElementById('loading-overlay').classList.remove('visible');}
-function setLoadingStep(i){const s=loadingSteps[i];document.getElementById('loadingBar').style.width=s.pct+'%';document.getElementById('loadingStep').textContent=s.label+'…';loadingSteps.forEach((ls,idx)=>{const el=document.getElementById(ls.id);if(!el)return;el.classList.remove('done','active');if(idx<i)el.classList.add('done');else if(idx===i)el.classList.add('active');});}
+function setLoadingStep(i){const s=loadingSteps[i];document.getElementById('loadingBar').style.width=(s.pct||0)+'%';document.getElementById('loadingStep').textContent=(s.label||'')+'…';loadingSteps.forEach((ls,idx)=>{const el=document.getElementById(ls.id);if(!el)return;el.classList.remove('done','active');if(idx<i)el.classList.add('done');else if(idx===i)el.classList.add('active');});}
 function finishLoading(){clearInterval(loadingTimer);document.getElementById('loadingBar').style.width='100%';document.getElementById('loadingStep').textContent='Done ✓';loadingSteps.forEach(s=>{const el=document.getElementById(s.id);if(el)el.classList.add('done');});setTimeout(hideLoading,600);}
 
-/* ── LOG ── */
-function log(msg,type='info'){const p=document.getElementById('logPanel');p.classList.add('visible');const ts=new Date().toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit',second:'2-digit'});const d=document.createElement('div');d.className=`log-line ${type}`;d.innerHTML=`<span class="ts">${ts}</span><span class="msg">${msg}</span>`;p.appendChild(d);p.scrollTop=p.scrollHeight;}
+/* ══ LOG + ERRORS ══ */
+function log(m,t='info'){const p=document.getElementById('logPanel');p.classList.add('visible');const ts=new Date().toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit',second:'2-digit'});const d=document.createElement('div');d.className=`log-line ${t}`;d.innerHTML=`<span class="ts">${ts}</span><span class="msg">${m}</span>`;p.appendChild(d);p.scrollTop=p.scrollHeight;}
 function clearLog(){const p=document.getElementById('logPanel');p.innerHTML='';p.classList.remove('visible');}
-function showError(title,msg,fixes=[]){document.getElementById('errorTitle').textContent=title;document.getElementById('errorMsg').textContent=' '+msg;const fx=document.getElementById('errorFix');document.getElementById('errorFixList').innerHTML=fixes.map(f=>`<li>${f}</li>`).join('');fx.style.display=fixes.length?'':'none';document.getElementById('errorBanner').style.display='';}
+function showError(title,msg,fixes=[]){document.getElementById('errorTitle').textContent=title;document.getElementById('errorMsg').textContent=' '+msg;document.getElementById('errorFixList').innerHTML=fixes.map(f=>`<li>${f}</li>`).join('');document.getElementById('errorFix').style.display=fixes.length?'':'none';document.getElementById('errorBanner').style.display='';}
 function clearError(){document.getElementById('errorBanner').style.display='none';}
 
-/* ── TABS ── */
-function switchMediaTab(tab){currentMediaTab=tab;const tabs=['upload','loom','youtube','screenshots'];document.querySelectorAll('.media-tab').forEach((b,i)=>b.classList.toggle('active',tabs[i]===tab));document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));document.getElementById('tab-'+tab).classList.add('active');}
-function switchPersonaTab(tab){currentPersonaTab=tab;document.querySelectorAll('.sub-tab').forEach(b=>b.classList.toggle('active',b.textContent.toLowerCase().includes(tab==='form'?'struct':'free')));document.getElementById('persona-form').style.display=tab==='form'?'':'none';document.getElementById('persona-text').style.display=tab==='text'?'':'none';}
+/* ══ TABS ══ */
+function switchMediaTab(t){currentMediaTab=t;const tabs=['upload','loom','link','screenshots'];document.querySelectorAll('.media-tab').forEach((b,i)=>b.classList.toggle('active',tabs[i]===t));document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));document.getElementById('tab-'+t).classList.add('active');}
+function switchPersonaTab(t){currentPersonaTab=t;document.querySelectorAll('.sub-tab').forEach(b=>b.classList.toggle('active',b.textContent.toLowerCase().includes(t==='form'?'struct':'free')));document.getElementById('persona-form').style.display=t==='form'?'':'none';document.getElementById('persona-text').style.display=t==='text'?'':'none';}
 
-/* ── MEDIA ── */
+/* ══ MEDIA ══ */
 function onDragOver(e){e.preventDefault();document.getElementById('dropZone').classList.add('drag-over');}
 function onDragLeave(){document.getElementById('dropZone').classList.remove('drag-over');}
 function onDrop(e){e.preventDefault();onDragLeave();const f=e.dataTransfer.files[0];if(f?.type.startsWith('video/'))handleVideoFile(f);}
-function handleVideoFile(file){if(!file)return;uploadedVideoFile=file;document.getElementById('videoEl').src=URL.createObjectURL(file);document.getElementById('videoPreview').style.display='';document.getElementById('frameHint').style.display='';}
-function previewLoom(val){const m=val.match(/loom\.com\/share\/([a-zA-Z0-9]+)/);if(m){document.getElementById('loomIframe').src=`https://www.loom.com/embed/${m[1]}`;document.getElementById('loomPreview').style.display='';}}
-function previewYT(val){const id=val.match(/(?:v=|youtu\.be\/|embed\/)([a-zA-Z0-9_-]{11})/)?.[1];if(id){document.getElementById('ytIframe').src=`https://www.youtube.com/embed/${id}`;document.getElementById('ytPreview').style.display='';}}
-function clearMedia(type){
-  if(type==='upload'){uploadedVideoFile=null;document.getElementById('videoEl').src='';document.getElementById('videoPreview').style.display='none';document.getElementById('videoFile').value='';document.getElementById('frameHint').style.display='none';annotatedFrames=[];}
-  if(type==='loom'){document.getElementById('loomUrl').value='';document.getElementById('loomIframe').src='';document.getElementById('loomPreview').style.display='none';}
-  if(type==='youtube'){document.getElementById('ytUrl').value='';document.getElementById('ytIframe').src='';document.getElementById('ytPreview').style.display='none';}
-}
+function handleVideoFile(f){if(!f)return;uploadedVideoFile=f;document.getElementById('videoEl').src=URL.createObjectURL(f);document.getElementById('videoPreview').style.display='';document.getElementById('frameHint').style.display='';}
+function previewLoom(v){const m=v.match(/loom\.com\/share\/([a-zA-Z0-9]+)/);if(m){document.getElementById('loomIframe').src=`https://www.loom.com/embed/${m[1]}`;document.getElementById('loomPreview').style.display='';}}
+function handleLinkInput(v){currentLinkUrl=v.trim();if(!v){document.getElementById('linkPreviewCard').style.display='none';document.getElementById('figmaEmbedWrap').style.display='none';return;}const isFigma=v.includes('figma.com');document.getElementById('linkPreviewCard').style.display='';document.getElementById('lpcIcon').textContent=isFigma?'🎨':'🔗';document.getElementById('lpcTitle').textContent=isFigma?'Figma link added':'Link added';document.getElementById('lpcType').textContent=isFigma?'Figma prototype / file':'External URL';document.getElementById('lpcUrl').textContent=v.length>60?v.slice(0,57)+'…':v;document.getElementById('lpcOpen').href=v;if(isFigma){document.getElementById('figmaIframe').src=`https://www.figma.com/embed?embed_host=share&url=${encodeURIComponent(v)}`;document.getElementById('figmaEmbedWrap').style.display='';}else document.getElementById('figmaEmbedWrap').style.display='none';}
+function clearFigmaEmbed(){document.getElementById('figmaEmbedWrap').style.display='none';}
+function clearMedia(t){if(t==='upload'){uploadedVideoFile=null;document.getElementById('videoEl').src='';document.getElementById('videoPreview').style.display='none';document.getElementById('videoFile').value='';document.getElementById('frameHint').style.display='none';annotatedFrames=[];}if(t==='loom'){document.getElementById('loomUrl').value='';document.getElementById('loomIframe').src='';document.getElementById('loomPreview').style.display='none';}if(t==='link'){currentLinkUrl='';document.getElementById('linkUrl').value='';document.getElementById('linkPreviewCard').style.display='none';document.getElementById('figmaEmbedWrap').style.display='none';}}
 function handleScreenshots(files){Array.from(files).forEach(f=>{const r=new FileReader();r.onload=e=>{uploadedScreenshots.push({file:f,dataUrl:e.target.result,name:f.name});renderSSGrid();};r.readAsDataURL(f);});}
-function renderSSGrid(){document.getElementById('ssGrid').innerHTML=uploadedScreenshots.map((s,i)=>`<div class="ss-thumb"><img src="${s.dataUrl}"/><button onclick="removeScreenshot(${i})">✕</button></div>`).join('');const cnt=document.getElementById('ssCount');if(uploadedScreenshots.length>0){cnt.style.display='';cnt.textContent=`✅ ${uploadedScreenshots.length} screenshot${uploadedScreenshots.length>1?'s':''} ready — each will be annotated`;}else cnt.style.display='none';}
+function renderSSGrid(){document.getElementById('ssGrid').innerHTML=uploadedScreenshots.map((s,i)=>`<div class="ss-thumb"><img src="${s.dataUrl}"/><button onclick="removeScreenshot(${i})">✕</button></div>`).join('');const c=document.getElementById('ssCount');if(uploadedScreenshots.length>0){c.style.display='';c.textContent=`✅ ${uploadedScreenshots.length} screenshot${uploadedScreenshots.length>1?'s':''} ready`;}else c.style.display='none';}
 function removeScreenshot(i){uploadedScreenshots.splice(i,1);renderSSGrid();}
 
-/* ── PERSONA ── */
+/* ══ PERSONA ══ */
 function buildPersonaString(){if(currentPersonaTab==='text')return document.getElementById('p_freetext').value.trim();return[['Name/Archetype','p_name'],['Age','p_age'],['Occupation','p_job'],['Tech Savviness','p_tech'],['Goals','p_goals'],['Pain Points','p_pain'],['Context','p_context']].map(([k,id])=>{const v=document.getElementById(id).value.trim();return v?`${k}: ${v}`:''}).filter(Boolean).join('\n');}
 function getPersonaName(){if(currentPersonaTab==='text')return document.getElementById('p_freetext').value.trim().slice(0,40)||'Unknown';return[document.getElementById('p_name').value.trim(),document.getElementById('p_job').value.trim()].filter(Boolean).join(' · ')||'Unknown Persona';}
 
-/* ── VALIDATE ── */
-function validateInputs(){const key=document.getElementById('apiKey').value.trim();if(!key){showError('Missing API Key','Please enter your OpenAI API key.',['Go to platform.openai.com/api-keys']);return false;}const ok=/^sk-[A-Za-z0-9]{40,60}$/.test(key)||/^sk-proj-[A-Za-z0-9_\-]{80,}$/.test(key);if(!ok){showError('API Key Format Wrong',`"${key.slice(0,12)}…"`);return false;}if(!buildPersonaString()){showError('Missing Persona','Fill in at least one persona field.');return false;}return true;}
+/* ══ VALIDATE ══ */
+function validateInputs(){
+  const k=document.getElementById('apiKey').value.trim();
+  if(!k){showError('Missing API Key','Please enter your OpenAI API key.',['Go to platform.openai.com/api-keys','Click "Create new secret key"']);return false;}
+  const ok=/^sk-[A-Za-z0-9]{40,60}$/.test(k)||/^sk-proj-[A-Za-z0-9_\-]{80,}$/.test(k);
+  if(!ok){showError('API Key Format Wrong',`"${k.slice(0,12)}…" doesn't look valid.`,['Legacy: sk- + ~48 chars','New: sk-proj- + 120+ chars']);return false;}
+  if(!buildPersonaString()){showError('Missing Persona','Fill in at least one persona field.');return false;}
+  return true;
+}
 
-/* ── FRAME EXTRACTION ── */
-function extractFramesFromVideo(videoFile){return new Promise(resolve=>{const url=URL.createObjectURL(videoFile);const vid=document.createElement('video');vid.src=url;vid.muted=true;vid.crossOrigin='anonymous';vid.onloadedmetadata=()=>{const dur=vid.duration;const n=Math.min(8,Math.max(4,Math.floor(dur/12)));const ts=Array.from({length:n},(_,i)=>(i+1)*(dur/(n+1)));const results=[];let idx=0;function grab(){if(idx>=ts.length){URL.revokeObjectURL(url);resolve(results);return;}vid.currentTime=ts[idx];vid.onseeked=()=>{const c=document.createElement('canvas');c.width=vid.videoWidth||640;c.height=vid.videoHeight||360;c.getContext('2d').drawImage(vid,0,0,c.width,c.height);results.push({dataUrl:c.toDataURL('image/jpeg',.75),timestamp:formatTime(ts[idx]),name:`Frame at ${formatTime(ts[idx])}`});log(`Frame ${idx+1} @ ${formatTime(ts[idx])}`,'ok');idx++;grab();};} grab();};vid.onerror=()=>{log('Video load error','err');resolve([]);}; });}
+/* ══ FRAME EXTRACTION — restored to original 8 frames, high quality ══ */
+function extractFramesFromVideo(f){
+  return new Promise(resolve=>{
+    const url=URL.createObjectURL(f);
+    const v=document.createElement('video');
+    v.src=url;v.muted=true;v.crossOrigin='anonymous';
+    v.onloadedmetadata=()=>{
+      const dur=v.duration;
+      // Restored: max 8 frames, min 4
+      const n=Math.min(8,Math.max(4,Math.floor(dur/12)));
+      const ts=Array.from({length:n},(_,i)=>(i+1)*(dur/(n+1)));
+      const res=[];let idx=0;
+      function grab(){
+        if(idx>=ts.length){URL.revokeObjectURL(url);resolve(res);return;}
+        v.currentTime=ts[idx];
+        v.onseeked=()=>{
+          const c=document.createElement('canvas');
+          c.width=v.videoWidth||640;c.height=v.videoHeight||360;
+          c.getContext('2d').drawImage(v,0,0,c.width,c.height);
+          // Restored: full quality jpeg
+          res.push({dataUrl:c.toDataURL('image/jpeg',.85),timestamp:formatTime(ts[idx]),name:`Frame at ${formatTime(ts[idx])}`});
+          log(`Frame ${idx+1} @ ${formatTime(ts[idx])}`,'ok');
+          idx++;grab();
+        };
+      }
+      grab();
+    };
+    v.onerror=()=>{log('Video load error','err');resolve([]);};
+  });
+}
 function formatTime(s){const m=Math.floor(s/60),sc=Math.floor(s%60);return`${m}:${sc.toString().padStart(2,'0')}`;}
 
-/* ── MAIN ANALYSIS ── */
+/* ══ MAIN ══ */
 async function runAnalysis(){
   clearError();clearLog();
   if(!validateInputs())return;
@@ -948,87 +882,98 @@ async function runAnalysis(){
   showLoading(isVideo?'video':isScreenshots?'screenshots':'base');
   try{
     let rawFrames=[];
-    if(isVideo){log('Extracting frames…','info');rawFrames=await extractFramesFromVideo(uploadedVideoFile);log(`${rawFrames.length} frames ready`,'ok');}
-    else if(isScreenshots){rawFrames=uploadedScreenshots.map((s,i)=>({dataUrl:s.dataUrl,timestamp:`Screen ${i+1}`,name:s.name||`Screen ${i+1}`}));}
+    if(isVideo){
+      log(`Extracting frames (up to 8)…`,'info');
+      rawFrames=await extractFramesFromVideo(uploadedVideoFile);
+      log(`${rawFrames.length} frames ready`,'ok');
+    } else if(isScreenshots){
+      rawFrames=uploadedScreenshots.map((s,i)=>({dataUrl:s.dataUrl,timestamp:`Screen ${i+1}`,name:s.name||`Screen ${i+1}`}));
+    }
     const images=rawFrames.map(f=>f.dataUrl);
-    const result=await callOpenAI(apiKey,persona,task,buildMediaDesc(rawFrames.length),images,hasVisuals);
+    const mediaDesc=buildMediaDesc(rawFrames.length);
+    log(`Calling ${API_MODEL}…`,'info');
+    const result=await callAnalysis(apiKey,persona,task,mediaDesc,images,hasVisuals,rawFrames.length);
     analysisResult=result;
-    if(hasVisuals&&result.frame_annotations){annotatedFrames=rawFrames.map((f,i)=>({...f,label:result.frame_annotations[i]?.label||f.name||`Screen ${i+1}`,severity:result.frame_annotations[i]?.severity||'low',annotations:result.frame_annotations[i]?.annotations||[]}));}
-    else{annotatedFrames=[];}
-    // Init scorecard state with AI scores
+    if(hasVisuals&&result.frame_annotations){
+      annotatedFrames=rawFrames.map((f,i)=>({
+        ...f,
+        label:result.frame_annotations[i]?.label||f.name||`Screen ${i+1}`,
+        severity:result.frame_annotations[i]?.severity||'low',
+        annotations:result.frame_annotations[i]?.annotations||[]
+      }));
+    } else annotatedFrames=[];
     initScorecardState(result.scorecard);
     log(`Done: score=${result.score}`,'ok');
     renderResults(result,hasVisuals,isScreenshots);
     renderScorecards();
+    saveReportToHistory();
+    document.getElementById('savedBanner').classList.add('visible');
+    setTimeout(()=>document.getElementById('savedBanner').classList.remove('visible'),5000);
     finishLoading();
     setTimeout(goToResults,700);
-  }catch(e){log(`Error: ${e.message}`,'err');handleAPIError(e);hideLoading();}
-  finally{setAnalysing(false);}
+  }catch(e){
+    log(`Error: ${e.message}`,'err');
+    handleAPIError(e);
+    hideLoading();
+  }finally{setAnalysing(false);}
 }
 
 function buildMediaDesc(fc=0){
-  if(currentMediaTab==='upload'&&uploadedVideoFile)return`Video: "${uploadedVideoFile.name}" (${(uploadedVideoFile.size/1024/1024).toFixed(1)}MB). ${fc} frames extracted.`;
+  if(currentMediaTab==='upload'&&uploadedVideoFile)return`Video: "${uploadedVideoFile.name}" (${(uploadedVideoFile.size/1024/1024).toFixed(1)}MB). ${fc} frames extracted at even intervals.`;
   if(currentMediaTab==='loom'){const v=document.getElementById('loomUrl').value.trim();return v?`Loom recording: ${v}`:'No Loom URL';}
-  if(currentMediaTab==='youtube'){const v=document.getElementById('ytUrl').value.trim();return v?`YouTube: ${v}`:'No YouTube URL';}
-  if(currentMediaTab==='screenshots')return`${uploadedScreenshots.length} screenshot(s).`;
-  return'No media';
+  if(currentMediaTab==='link'){const v=currentLinkUrl;return v?(v.includes('figma.com')?`Figma prototype: ${v}`:`Link: ${v}`):'No link';}
+  if(currentMediaTab==='screenshots')return`${uploadedScreenshots.length} screenshot(s) provided.`;
+  return'No media provided';
 }
 
-/* ── OPENAI ── */
-async function callOpenAI(apiKey,persona,task,mediaDesc,images,hasVisuals){
-  const frameSchema=hasVisuals?`"frame_annotations":[{"frame_index":<int>,"label":"<label>","severity":"high"|"medium"|"low"|"positive","annotations":[{"id":<int>,"x":<5-95>,"y":<5-95>,"severity":"high"|"medium"|"low"|"positive","title":"<title>","desc":"<desc>","quote":"<reaction>"}]}],`:`"frame_annotations":[],`;
+/* ══ OPENAI API CALL ══ */
+async function callAnalysis(apiKey,persona,task,mediaDesc,images,hasVisuals,frameCount=0){
+  const frameSchema=hasVisuals
+    ?`"frame_annotations":[{"frame_index":<int 0-based>,"label":"<screen label>","severity":"high"|"medium"|"low"|"positive","annotations":[{"id":<int starting at 1>,"x":<5-95>,"y":<5-95>,"severity":"high"|"medium"|"low"|"positive","title":"<short title>","desc":"<1-2 sentences>","quote":"<first-person reaction>"}]}],`
+    :`"frame_annotations":[],`;
 
-  const scorecardSchema = `"scorecard":{
-  "e1":{
-    "0":{"0":{"score":<1-5>,"evidence":["<bullet>","<bullet>"]},"1":{"score":<1-5>,"evidence":["<bullet>"]},"2":{"score":<1-5>,"evidence":["<bullet>"]},"3":{"score":<1-5>,"evidence":["<bullet>"]}},
-    "1":{"0":{"score":<1-5>,"evidence":["<bullet>"]},"1":{"score":<1-5>,"evidence":["<bullet>"]},"2":{"score":<1-5>,"evidence":["<bullet>"]},"3":{"score":<1-5>,"evidence":["<bullet>"]},"4":{"score":<1-5>,"evidence":["<bullet>"]}}
-  },
-  "e2":{
-    "0":{"0":{"score":<1-5>,"evidence":["<bullet>"]},"1":{"score":<1-5>,"evidence":["<bullet>"]},"2":{"score":<1-5>,"evidence":["<bullet>"]},"3":{"score":<1-5>,"evidence":["<bullet>"]}},
-    "1":{"0":{"score":<1-5>,"evidence":["<bullet>"]},"1":{"score":<1-5>,"evidence":["<bullet>"]},"2":{"score":<1-5>,"evidence":["<bullet>"]},"3":{"score":<1-5>,"evidence":["<bullet>"]}}
-  },
-  "e3":{
-    "0":{"0":{"score":<1-5>,"evidence":["<bullet>"]},"1":{"score":<1-5>,"evidence":["<bullet>"]},"2":{"score":<1-5>,"evidence":["<bullet>"]},"3":{"score":<1-5>,"evidence":["<bullet>"]}},
-    "1":{"0":{"score":<1-5>,"evidence":["<bullet>"]},"1":{"score":<1-5>,"evidence":["<bullet>"]},"2":{"score":<1-5>,"evidence":["<bullet>"]},"3":{"score":<1-5>,"evidence":["<bullet>"]}}
-  }
-}`;
+  const scorecardSchema=`"scorecard":{"e1":{"0":{"0":{"score":<1-5>,"evidence":["<obs>","<obs>"]},"1":{"score":<1-5>,"evidence":["<obs>"]},"2":{"score":<1-5>,"evidence":["<obs>"]},"3":{"score":<1-5>,"evidence":["<obs>"]}},"1":{"0":{"score":<1-5>,"evidence":["<obs>"]},"1":{"score":<1-5>,"evidence":["<obs>"]},"2":{"score":<1-5>,"evidence":["<obs>"]},"3":{"score":<1-5>,"evidence":["<obs>"]},"4":{"score":<1-5>,"evidence":["<obs>"]}}},"e2":{"0":{"0":{"score":<1-5>,"evidence":["<obs>"]},"1":{"score":<1-5>,"evidence":["<obs>"]},"2":{"score":<1-5>,"evidence":["<obs>"]},"3":{"score":<1-5>,"evidence":["<obs>"]}},"1":{"0":{"score":<1-5>,"evidence":["<obs>"]},"1":{"score":<1-5>,"evidence":["<obs>"]},"2":{"score":<1-5>,"evidence":["<obs>"]},"3":{"score":<1-5>,"evidence":["<obs>"]}}},"e3":{"0":{"0":{"score":<1-5>,"evidence":["<obs>"]},"1":{"score":<1-5>,"evidence":["<obs>"]},"2":{"score":<1-5>,"evidence":["<obs>"]},"3":{"score":<1-5>,"evidence":["<obs>"]}},"1":{"0":{"score":<1-5>,"evidence":["<obs>"]},"1":{"score":<1-5>,"evidence":["<obs>"]},"2":{"score":<1-5>,"evidence":["<obs>"]},"3":{"score":<1-5>,"evidence":["<obs>"]}}}}`;
 
-  const sys=`You are a senior UX researcher conducting a synthetic usability test. Embody the persona EXACTLY.
-${hasVisuals?'Attached images are screens from the experience. For each frame identify issues with precise x/y % coordinates.':''}
+  const frameInstruction = hasVisuals ? `
+CRITICAL FRAME ANNOTATION RULES:
+- You MUST provide annotations for EVERY single frame/screenshot — do not skip any
+- Provide at least 2 annotations per frame minimum
+- If a screen appears clean, find subtle issues: spacing inconsistencies, missing hover states, unclear affordances, typography issues, or note what IS working well with a "positive" severity
+- Place pins precisely on the actual UI element being referenced (x/y as % of image width/height)
+- frame_annotations array MUST contain exactly ${frameCount} entries (one per attached image, in order)` : '';
 
-You must also score the experience against the E1/E2/E3 framework:
+  const sys=`You are a senior UX researcher conducting a synthetic usability test. Embody the persona EXACTLY and analyse this experience through their eyes.
+${frameInstruction}
 
-E1 EFFICIENCY (max 45):
-- Subcat 0 "Cognitive Load/Clarity": criteria 0=Number of Decisions, 1=Information Density, 2=Jargon/Terminology, 3=Unclear Next Steps
-- Subcat 1 "Flow Continuity": criteria 0=Dead Ends, 1=Repeated Steps, 2=Context Switching, 3=Unexpected Redirects, 4=Progress Indication/Clarity
-
-E2 EFFECTIVENESS (max 45):
-- Subcat 0 "JTBD Alignment": criteria 0=Is the why clear, 1=Is success defined, 2=Flow reflects user intent, 3=No irrelevant/repetitive steps
-- Subcat 1 "Communication": criteria 0=Low time to value, 1=Includes contextual guidance, 2=Has journey clarity, 3=Has clear progress indicators
-
-E3 ENJOYABLE (max 40):
-- Subcat 0 "Perception of Value/Trust": criteria 0=Visual Polish, 1=Content Quality, 2=Clear Error States, 3=Low Friction
-- Subcat 1 "Communication": criteria 0=Education Touchpoints, 1=Wow Moments, 2=Clear Success Moments, 3=Loading States
-
-For EACH criterion provide:
-- score: integer 1-5 (1=Major issues, 2=Significant gaps, 3=Acceptable, 4=Strong, 5=Best-in-class)
-- evidence: array of 2-3 specific bullet strings grounded in what you observed in the recording/screenshots/task
-
-Score honestly based on persona perspective. Be specific. Each evidence bullet should reference a concrete moment.
+E1 EFFICIENCY (max 45): Subcat0 "Cognitive Load"[0=Decisions,1=Info Density,2=Jargon,3=Unclear Steps] Subcat1 "Flow"[0=Dead Ends,1=Repeated,2=Context Switch,3=Redirects,4=Progress].
+E2 EFFECTIVENESS (max 40): Subcat0 "JTBD"[0=Why clear,1=Success,2=Intent,3=No irrelevant] Subcat1 "Comm"[0=Time to value,1=Guidance,2=Journey,3=Progress].
+E3 ENJOYABLE (max 40): Subcat0 "Trust"[0=Polish,1=Content,2=Errors,3=Friction] Subcat1 "Comm"[0=Education,1=Wow,2=Success,3=Loading].
+Score each criterion 1-5 with 2 specific evidence bullets.
 
 Return ONLY valid JSON:
-{"score":<0-100>,"score_label":"Poor"|"Needs Work"|"Acceptable"|"Good"|"Excellent","score_adjective":"<word>","score_percentile":"<e.g. 40th percentile>","score_vs_average":"<e.g. +5% above>","report_title":"<title>","goal":"<goal>",${frameSchema}"steps":[{"index":<n>,"severity":"low"|"medium"|"high"|"critical"|"positive","discovery_type":"<type>","action":"<action>","observation":"<obs>","reaction":"<first-person>","frame_index":<int or null>}],"pure_friction_score":<int>,"pure_steps_evaluated":<int>,"pure_avg_friction":"<val>","pure_friction_level":"Low"|"Medium"|"High","pure_contains_effort_stops":<bool>,"tasks":[{"number":<int>,"description":"<task>","status":"complete"|"partial"|"fail","discovery":"Discoverable"|"Not Discoverable"|"Partially Discoverable","note":"<note>"}],"nielsen":[{"heuristic":"<name>","score":<1-5>,"observation":"<obs>"}],"accessibility":{"grade":"A"|"B"|"C"|"D"|"F","title":"<title>","summary":"<summary>","issues":[{"severity":"high"|"medium"|"low","title":"<title>","description":"<desc>"}]},"recommendations":{"high":[{"icon":"<emoji>","title":"","detail":""}],"medium":[{"icon":"<emoji>","title":"","detail":""}],"low":[{"icon":"<emoji>","title":"","detail":""}]},"summary":{"top_strength":"<strength>","top_weakness":"<weakness>","full":"<3-4 sentences>"},${scorecardSchema}}`;
+{"score":<0-100>,"score_label":"Poor"|"Needs Work"|"Acceptable"|"Good"|"Excellent","score_adjective":"<word>","score_percentile":"<val>","score_vs_average":"<val>","report_title":"<title>","goal":"<goal>",${frameSchema}"steps":[{"index":<n>,"severity":"low"|"medium"|"high"|"critical"|"positive","discovery_type":"<str>","action":"<str>","observation":"<str>","reaction":"<str>","frame_index":<int|null>}],"pure_friction_score":<int>,"pure_steps_evaluated":<int>,"pure_avg_friction":"<val>","pure_friction_level":"Low"|"Medium"|"High","pure_contains_effort_stops":<bool>,"tasks":[{"number":<int>,"description":"<str>","status":"complete"|"partial"|"fail","discovery":"Discoverable"|"Not Discoverable"|"Partially Discoverable","note":"<str>"}],"nielsen":[{"heuristic":"<str>","score":<1-5>,"observation":"<str>"}],"accessibility":{"grade":"A"|"B"|"C"|"D"|"F","title":"<str>","summary":"<str>","issues":[{"severity":"high"|"medium"|"low","title":"<str>","description":"<str>"}]},"recommendations":{"high":[{"icon":"<emoji>","title":"<str>","detail":"<str>"}],"medium":[{"icon":"<emoji>","title":"<str>","detail":"<str>"}],"low":[{"icon":"<emoji>","title":"<str>","detail":"<str>"}]},"summary":{"top_strength":"<str>","top_weakness":"<str>","full":"<str>"},${scorecardSchema}}`;
 
-  const userContent=[{type:'text',text:`PERSONA:\n${persona}\n\nTASK/JTBD:\n${task||'General UX review'}\n\nMEDIA:\n${mediaDesc}\n\nAnalyse as the persona and return the full JSON including all E1/E2/E3 scorecard scores with evidence.`},...images.map(img=>({type:'image_url',image_url:{url:img,detail:'high'}}))];
-  const res=await fetch('https://api.openai.com/v1/chat/completions',{method:'POST',headers:{'Content-Type':'application/json','Authorization':`Bearer ${apiKey}`},body:JSON.stringify({model:'gpt-4o',max_tokens:5000,messages:[{role:'system',content:sys},{role:'user',content:userContent}],response_format:{type:'json_object'}})});
+  const userContent=[
+    {type:'text',text:`PERSONA:\n${persona}\n\nTASK/JTBD:\n${task||'General UX review'}\n\nMEDIA:\n${mediaDesc}\n\nAnalyse as the persona and return the complete JSON report. Remember: annotate EVERY frame.`},
+    // Restored: detail:'high' for best annotation quality
+    ...images.map(img=>({type:'image_url',image_url:{url:img,detail:'high'}}))
+  ];
+
+  log(`→ ${API_MODEL} [${images.length} image(s), detail:high]`,'info');
+  const res=await fetch(API_ENDPOINT,{
+    method:'POST',
+    headers:{'Content-Type':'application/json','Authorization':`Bearer ${apiKey}`},
+    body:JSON.stringify({model:API_MODEL,max_tokens:5000,messages:[{role:'system',content:sys},{role:'user',content:userContent}],response_format:{type:'json_object'}})
+  });
   const data=await res.json();
-  if(!res.ok){const e=new Error(data?.error?.message||res.statusText);e.code=data?.error?.code;e.status=res.status;throw e;}
+  log(`← HTTP ${res.status}`,res.ok?'ok':'warn');
+  if(!res.ok){const e=new Error(data?.error?.message||res.statusText);e.status=res.status;e.code=data?.error?.code;throw e;}
   const content=data.choices?.[0]?.message?.content;
-  if(!content)throw new Error('Empty response');
+  if(!content)throw new Error('Empty response from OpenAI');
   return JSON.parse(content);
 }
 
-/* ── RENDER MAIN RESULTS ── */
+/* ══ RENDER ══ */
 function renderResults(r,hasVisuals,isScreenshots){
   const score=r.score??0;
   document.getElementById('r-score').textContent=score;
@@ -1041,11 +986,23 @@ function renderResults(r,hasVisuals,isScreenshots){
   document.getElementById('r-score').style.color=col;
   document.getElementById('r-chips').innerHTML=[{label:'Adjective',val:r.score_label||'--'},{label:'Percentile',val:r.score_percentile||'--'},{label:'vs. Average',val:r.score_vs_average||'--'}].map(c=>`<div class="score-chip"><div class="chip-label">${c.label}</div><div class="chip-val">${c.val}</div></div>`).join('');
   document.getElementById('r-goal').innerHTML=`<strong>Goal</strong>${r.goal||'Complete the task'}`;
-  if(hasVisuals&&annotatedFrames.length>0){document.getElementById('r-visual-wrap').style.display='';document.getElementById('r-visual-label').textContent=isScreenshots?'🖼️ Annotated Screenshots':'📽️ Extracted Frames';buildFrameStrip();selectFrame(0);}
+
+  if(hasVisuals&&annotatedFrames.length>0){
+    document.getElementById('r-visual-wrap').style.display='';
+    document.getElementById('r-visual-label').textContent=isScreenshots?'🖼️ Annotated Screenshots':'📽️ Extracted Frames';
+    buildFrameStrip();selectFrame(0);
+  } else document.getElementById('r-visual-wrap').style.display='none';
+
   document.getElementById('r-steps').innerHTML=(r.steps||[]).map((s,i)=>{
-    if(hasVisuals&&annotatedFrames.length>0){const fi=s.frame_index!=null?s.frame_index:(i%annotatedFrames.length);const frame=annotatedFrames[fi]||annotatedFrames[0];const ann=frame?.annotations?.[0];const tsLabel=isScreenshots?`Screen ${fi+1}`:frame?.timestamp||'';return`<div class="step-frame-card"><div class="sfc-body"><div class="sfc-img"><img src="${frame?.dataUrl||''}" alt=""/><span class="sfc-ts">${tsLabel}</span>${ann?`<div class="sfc-pin" style="left:${ann.x}%;top:${ann.y}%"><div class="sfc-pin-dot ${ann.severity}">${ann.id}</div></div>`:''}</div><div class="sfc-content"><div class="sfc-step-hd">Step ${s.index} <span class="sfc-badge ${s.severity}">${capFirst(s.severity)}</span></div><div class="sfc-action">${s.action}</div><div class="sfc-obs">${s.observation}</div><div class="sfc-reaction">"${s.reaction}"</div></div></div></div>`;}
+    if(hasVisuals&&annotatedFrames.length>0){
+      const fi=s.frame_index!=null?s.frame_index:(i%annotatedFrames.length);
+      const fr=annotatedFrames[fi]||annotatedFrames[0];
+      const ann=fr?.annotations?.[0];
+      return`<div class="step-frame-card"><div class="sfc-body"><div class="sfc-img"><img src="${fr?.dataUrl||''}" alt=""/><span class="sfc-ts">${isScreenshots?`Screen ${fi+1}`:fr?.timestamp||''}</span>${ann?`<div class="sfc-pin" style="left:${ann.x}%;top:${ann.y}%"><div class="sfc-pin-dot ${ann.severity}">${ann.id}</div></div>`:''}</div><div class="sfc-content"><div class="sfc-step-hd">Step ${s.index} <span class="sfc-badge ${s.severity}">${capFirst(s.severity)}</span></div><div class="sfc-action">${s.action}</div><div class="sfc-obs">${s.observation}</div><div class="sfc-reaction">"${s.reaction}"</div></div></div></div>`;
+    }
     return`<div class="task-step"><div class="ts-left"><div class="ts-idx ${s.severity}">${s.index}</div></div><div class="ts-right"><div class="ts-badges"><span class="sbadge ${s.severity}">${capFirst(s.severity)}</span><span class="sbadge outline">${s.discovery_type||''}</span></div><div class="ts-action">${s.action}</div><div style="margin-bottom:5px"><div class="ts-row-label">Observation</div><div class="ts-row-text">${s.observation}</div></div><div class="ts-reaction">"${s.reaction}"</div></div></div>`;
   }).join('');
+
   document.getElementById('r-pure-num').textContent=r.pure_friction_score??'--';
   document.getElementById('r-pure-stats').innerHTML=[{label:'Steps Evaluated',val:r.pure_steps_evaluated??'--'},{label:'Avg / Step',val:r.pure_avg_friction||'--'},{label:'Friction Level',val:r.pure_friction_level||'--'}].map(s=>`<div class="psr"><span class="psr-label">${s.label}</span><span class="psr-val">${s.val}</span></div>`).join('');
   document.getElementById('r-pure-badges').innerHTML=[r.pure_friction_level==='High'&&'<span class="sbadge high">High Friction</span>',r.pure_contains_effort_stops&&'<span class="sbadge high">Contains Effort Stops</span>',r.pure_friction_level==='Low'&&'<span class="sbadge low">Low Friction</span>'].filter(Boolean).join('');
@@ -1061,19 +1018,69 @@ function renderResults(r,hasVisuals,isScreenshots){
   document.getElementById('r-sum-full').innerHTML=`<div class="sb-lbl">Full Summary</div><div class="sb-text">${sum.full||'--'}</div>`;
 }
 
-/* ── FRAME VIEWER ── */
-function buildFrameStrip(){document.getElementById('r-frame-strip').innerHTML=annotatedFrames.map((f,i)=>`<div class="frame-card sev-${f.severity||'low'}" id="fc-${i}" onclick="selectFrame(${i})"><div class="fc-img"><img src="${f.dataUrl}" alt=""/><span class="fc-ts">${f.timestamp||''}</span><span class="fc-dot ${f.severity||'low'}">${f.annotations?.length||'✓'}</span></div><div class="fc-meta"><div class="fc-step">Screen ${i+1}</div><div class="fc-lbl">${f.label||`Screen ${i+1}`}</div></div></div>`).join('');}
-function selectFrame(idx){currentFrameIdx=idx;const f=annotatedFrames[idx];if(!f)return;document.querySelectorAll('.frame-card').forEach((c,i)=>c.classList.toggle('fc-active',i===idx));document.getElementById('avImg').src=f.dataUrl;document.getElementById('av-title').textContent=`Screen ${idx+1} — ${f.label||''}`;document.getElementById('annPins').innerHTML=(f.annotations||[]).map((ann,i)=>`<div class="ann-pin ${ann.severity}" style="left:${ann.x}%;top:${ann.y}%" onmouseenter="showTT(event,${JSON.stringify(ann).replace(/"/g,'&quot;')},${i+1})" onmouseleave="hideTT()" onclick="highlightAnnItem(${i})"><div class="ann-pin-ring"></div><div class="ann-pin-dot">${i+1}</div></div>`).join('');document.getElementById('avPanel').innerHTML=(f.annotations||[]).map((ann,i)=>`<div class="ann-item" id="ai-${i}" onclick="highlightAnnItem(${i})"><div class="ai-num ${ann.severity}">${i+1}</div><div class="ai-body"><span class="aib-sev ${ann.severity}">${capFirst(ann.severity)}</span><div class="aib-title">${ann.title}</div><div class="aib-desc">${ann.desc}</div><div class="aib-quote">"${ann.quote}"</div></div></div>`).join('')||'<div style="padding:20px;text-align:center;color:var(--text-3);font-size:13px">No findings on this screen</div>';}
+/* ══ FRAME VIEWER ══ */
+function buildFrameStrip(){
+  document.getElementById('r-frame-strip').innerHTML=annotatedFrames.map((f,i)=>`
+    <div class="frame-card sev-${f.severity||'low'}" id="fc-${i}" onclick="selectFrame(${i})">
+      <div class="fc-img">
+        <img src="${f.dataUrl}" alt=""/>
+        <span class="fc-ts">${f.timestamp||''}</span>
+        <span class="fc-dot ${f.severity||'low'}">${f.annotations?.length||'✓'}</span>
+      </div>
+      <div class="fc-meta">
+        <div class="fc-step">Screen ${i+1}</div>
+        <div class="fc-lbl">${f.label||`Screen ${i+1}`}</div>
+      </div>
+    </div>`).join('');
+}
+
+function selectFrame(idx){
+  currentFrameIdx=idx;const f=annotatedFrames[idx];if(!f)return;
+  document.querySelectorAll('.frame-card').forEach((c,i)=>c.classList.toggle('fc-active',i===idx));
+  document.getElementById('avImg').src=f.dataUrl;
+  document.getElementById('av-title').textContent=`Screen ${idx+1} — ${f.label||''}`;
+  document.getElementById('annPins').innerHTML=(f.annotations||[]).map((ann,i)=>`
+    <div class="ann-pin ${ann.severity}" style="left:${ann.x}%;top:${ann.y}%"
+      onmouseenter="showTT(event,${JSON.stringify(ann).replace(/"/g,'&quot;')},${i+1})"
+      onmouseleave="hideTT()"
+      onclick="highlightAnnItem(${i})">
+      <div class="ann-pin-ring"></div>
+      <div class="ann-pin-dot">${i+1}</div>
+    </div>`).join('');
+  // Show clean empty state if no annotations
+  const panelContent=(f.annotations||[]).length>0
+    ?(f.annotations||[]).map((ann,i)=>`
+      <div class="ann-item" id="ai-${i}" onclick="highlightAnnItem(${i})">
+        <div class="ai-num ${ann.severity}">${i+1}</div>
+        <div class="ai-body">
+          <span class="aib-sev ${ann.severity}">${capFirst(ann.severity)}</span>
+          <div class="aib-title">${ann.title}</div>
+          <div class="aib-desc">${ann.desc}</div>
+          <div class="aib-quote">"${ann.quote}"</div>
+        </div>
+      </div>`).join('')
+    :'<div class="ann-none" style="margin:14px">✅ No issues found on this screen</div>';
+  document.getElementById('avPanel').innerHTML=panelContent;
+}
 function showTT(e,ann,num){const tt=document.getElementById('annTT');tt.innerHTML=`<div class="att-sev">${ann.severity}</div><div class="att-title">${num}. ${ann.title}</div><div class="att-desc">${ann.desc}</div>`;const x=parseFloat(e.currentTarget.style.left),y=parseFloat(e.currentTarget.style.top);tt.style.left=(x>60?x-28:x+4)+'%';tt.style.top=(y>65?y-28:y+6)+'%';tt.classList.add('visible');}
 function hideTT(){document.getElementById('annTT').classList.remove('visible');}
 function highlightAnnItem(i){document.querySelectorAll('.ann-item').forEach((el,j)=>el.classList.toggle('ai-active',i===j));document.getElementById(`ai-${i}`)?.scrollIntoView({behavior:'smooth',block:'nearest'});}
 function prevFrame(){if(currentFrameIdx>0)selectFrame(currentFrameIdx-1);}
 function nextFrame(){if(currentFrameIdx<annotatedFrames.length-1)selectFrame(currentFrameIdx+1);}
 
-/* ── ERROR HANDLER ── */
-function handleAPIError(e){const s=e.status,c=e.code;if(s===401||c==='invalid_api_key')showError('Invalid API Key',e.message,['Check platform.openai.com/api-keys']);else if(s===429)showError('Rate Limit',e.message,['Add credits at platform.openai.com/settings/billing']);else if(s===400)showError('Bad Request',e.message,['Try fewer/smaller screenshots','Simplify persona or task']);else if(s===403)showError('Access Denied',e.message,['Check your OpenAI account tier']);else if(e.message.includes('fetch')||e.message.includes('Network'))showError('Network Error','Could not reach OpenAI.',['Check your internet connection']);else showError('Error',e.message,['Try again or check the log below']);}
+/* ══ ERROR HANDLER ══ */
+function handleAPIError(e){
+  const s=e.status,c=e.code;
+  if(s===401||c==='invalid_api_key')showError('Invalid API Key',e.message,['Check platform.openai.com/api-keys','Make sure you copied the full key']);
+  else if(s===429)showError('Rate Limit / Quota',e.message,['Add credits at platform.openai.com/settings/billing','Check usage at platform.openai.com/usage']);
+  else if(s===400)showError('Bad Request',e.message,['Try fewer screenshots','Simplify persona or task description']);
+  else if(s===403)showError('Access Denied',e.message,['Check your OpenAI account tier and permissions']);
+  else if(e.message?.includes('fetch')||e.message?.includes('Network'))showError('Network Error','Could not reach OpenAI.',['Check your internet connection']);
+  else if(e.message?.includes('JSON'))showError('Parse Error','Unexpected response format.',['Try again — this is rare']);
+  else showError('Error',e.message,['Try again or check the log below']);
+}
 
-/* ── PDF ── */
+/* ══ PDF ══ */
 async function downloadPDF(){
   const btn=document.querySelector('.dl-btn');btn.textContent='⏳ Generating…';btn.disabled=true;
   try{
@@ -1082,78 +1089,37 @@ async function downloadPDF(){
     const np=()=>{doc.addPage();y=M;};const ck=(n=20)=>{if(y+n>282)np();};
     const C={p:[91,87,248],t1:[15,17,23],t2:[90,98,120],t3:[155,163,182],red:[239,68,68],amb:[245,158,11],grn:[34,197,94],bg:[247,248,250],bd:[228,231,236]};
     const fc=rgb=>doc.setFillColor(...rgb);const tc=rgb=>doc.setTextColor(...rgb);const dc=rgb=>doc.setDrawColor(...rgb);
-    // Cover
     fc(C.p);doc.rect(0,0,210,44,'F');doc.setFont('helvetica','bold');doc.setFontSize(19);doc.setTextColor(255,255,255);
     doc.text(analysisResult.report_title||'UX Analysis Report',M,17);doc.setFontSize(10);doc.setFont('helvetica','normal');
-    doc.text('Synthetic Usability Test Report',M,25);doc.text(`Persona: ${getPersonaName()}`,M,32);
+    doc.text('Synthetic Usability Test Report — GPT-4o',M,25);doc.text(`Persona: ${getPersonaName()}`,M,32);
     doc.text(new Date().toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric'}),W-M,32,{align:'right'});y=54;
     const r=analysisResult;const sc=r.score>=75?C.grn:r.score>=50?C.amb:C.red;
     fc(sc);doc.roundedRect(M,y,W-M*2,24,3,3,'F');doc.setFont('helvetica','bold');doc.setFontSize(24);doc.setTextColor(255,255,255);
     doc.text(String(r.score),M+7,y+16);doc.setFontSize(10);doc.text('/100',M+22,y+16);doc.setFontSize(13);doc.text((r.score_adjective||r.score_label)+' Experience',M+40,y+10);
     doc.setFont('helvetica','normal');doc.setFontSize(8.5);doc.text(doc.splitTextToSize(r.score_vs_average||'',W-M*2-46).slice(0,1),M+40,y+18);y+=32;
-    // Annotated screens
-    if(annotatedFrames.length>0){ck(16);tc(C.t1);doc.setFont('helvetica','bold');doc.setFontSize(11);doc.text('Annotated Screens',M,y);y+=8;const fw=(W-M*2-10)/3;for(let i=0;i<Math.min(annotatedFrames.length,6);i++){ck(50);const col=i%3,row=Math.floor(i/3);const fx=M+col*(fw+5),fy=y+row*46;try{doc.addImage(annotatedFrames[i].dataUrl,'JPEG',fx,fy,fw,fw*.6);}catch(e){}fc(C.bg);dc(C.bd);doc.roundedRect(fx,fy+fw*.6+1,fw,10,1,1,'FD');tc(C.t2);doc.setFont('helvetica','normal');doc.setFontSize(7.5);doc.text((annotatedFrames[i].label||`Screen ${i+1}`).slice(0,28),fx+2,fy+fw*.6+7);if(col===2||i===Math.min(annotatedFrames.length,6)-1){y+=48;}}y+=6;}
-    // Steps
+    if(annotatedFrames.length>0){ck(16);tc(C.t1);doc.setFont('helvetica','bold');doc.setFontSize(11);doc.text('Annotated Screens',M,y);y+=8;const fw=(W-M*2-10)/3;for(let i=0;i<Math.min(annotatedFrames.length,6);i++){ck(50);const col=i%3;const fx=M+col*(fw+5),fy=y;try{doc.addImage(annotatedFrames[i].dataUrl,'JPEG',fx,fy,fw,fw*.6);}catch(e){}fc(C.bg);dc(C.bd);doc.roundedRect(fx,fy+fw*.6+1,fw,10,1,1,'FD');tc(C.t2);doc.setFont('helvetica','normal');doc.setFontSize(7.5);doc.text((annotatedFrames[i].label||`Screen ${i+1}`).slice(0,28),fx+2,fy+fw*.6+7);if(col===2||i===Math.min(annotatedFrames.length,6)-1){y+=48;}}y+=6;}
     ck(16);tc(C.t1);doc.setFont('helvetica','bold');doc.setFontSize(11);doc.text('Task Walkthrough',M,y);y+=8;
     (r.steps||[]).forEach(s=>{ck(26);const sc2=s.severity==='high'?C.red:s.severity==='critical'?[124,58,237]:s.severity==='medium'?C.amb:C.grn;fc(sc2);doc.circle(M+5,y+4,4,'F');doc.setFont('helvetica','bold');doc.setFontSize(8.5);doc.setTextColor(255,255,255);doc.text(String(s.index),M+5,y+5.5,{align:'center'});doc.setFont('helvetica','bold');doc.setFontSize(9.5);tc(C.t1);doc.text(s.action,M+13,y+5);doc.setFont('helvetica','normal');doc.setFontSize(8.5);tc(C.t2);const ol=doc.splitTextToSize(s.observation,W-M*2-15);doc.text(ol.slice(0,2),M+13,y+11);doc.setFont('helvetica','italic');doc.setFontSize(8);tc(C.t3);doc.text(`"${(s.reaction||'').slice(0,110)}"`,M+13,y+11+ol.slice(0,2).length*4+2);y+=28;});
-    // ── EXPERIENCE SCORECARD in PDF ──
-    ck(20);np();
-    fc(C.p);doc.rect(0,y-4,210,14,'F');doc.setFont('helvetica','bold');doc.setFontSize(13);doc.setTextColor(255,255,255);
-    doc.text('Experience Scorecard — E1 · E2 · E3',M,y+5);y+=18;
-    // Summary row
-    ['e1','e2','e3'].forEach((id,idx)=>{
-      const def=SCORECARDS[id];const total=getCardTotal(id);const pct=total/def.max;
-      const dotC=pct>=0.7?C.grn:pct>=0.5?C.amb:C.red;
-      const bx=M+idx*(W-M*2)/3;
-      fc(dotC);doc.circle(bx+8,y+5,5,'F');
-      doc.setFont('helvetica','bold');doc.setFontSize(8);doc.setTextColor(255,255,255);doc.text(String(total),bx+8,y+6.5,{align:'center'});
-      doc.setFont('helvetica','bold');doc.setFontSize(9);tc(C.t1);doc.text(def.label,bx+17,y+4);
-      doc.setFont('helvetica','normal');doc.setFontSize(8);tc(C.t2);doc.text(`${total} / ${def.max}`,bx+17,y+10);
-    });y+=20;
-    // Each scorecard detail
-    ['e1','e2','e3'].forEach(id=>{
-      const def=SCORECARDS[id];
-      ck(16);tc(C.t1);doc.setFont('helvetica','bold');doc.setFontSize(11);doc.text(`${def.icon} ${def.label}`,M,y);y+=8;
-      def.subcats.forEach((sub,si)=>{
-        ck(12);fc(C.bg);dc(C.bd);doc.roundedRect(M,y,W-M*2,9,2,2,'FD');
-        doc.setFont('helvetica','bold');doc.setFontSize(8.5);tc(C.t1);doc.text(sub.name,M+4,y+6);y+=12;
-        sub.criteria.forEach((crit,ci)=>{
-          ck(14);const state=scorecardState[id][si][ci];const dotC=state.currentScore<=2?C.red:state.currentScore<=4?C.amb:C.grn;
-          fc(dotC);doc.circle(M+5,y+3.5,3,'F');
-          doc.setFont('helvetica',state.edited?'bold':'normal');doc.setFontSize(8.5);tc(C.t1);
-          doc.text(crit,M+12,y+5);
-          doc.setFont('helvetica','bold');doc.setFontSize(8.5);tc(dotC);
-          doc.text(`${state.currentScore}/5${state.edited?` (AI:${state.aiScore})`:''}`,W-M,y+5,{align:'right'});
-          // Evidence bullets
-          if(state.evidence.length>0){
-            doc.setFont('helvetica','normal');doc.setFontSize(7.5);tc(C.t3);
-            state.evidence.slice(0,2).forEach((ev,ei)=>{doc.text(`  • ${ev.slice(0,90)}`,M+12,y+9+ei*4);});
-            y+=state.evidence.slice(0,2).length*4;
-          }
-          // Designer note
-          if(state.note){ck(8);doc.setFont('helvetica','italic');doc.setFontSize(7.5);tc(C.p);doc.text(`  ✏️ ${state.note.slice(0,100)}`,M+12,y+9);y+=6;}
-          y+=11;
-        });
-        y+=3;
-      });
-      y+=4;
-    });
-    // Recommendations
     ck(16);tc(C.t1);doc.setFont('helvetica','bold');doc.setFontSize(11);doc.text('Recommendations',M,y);y+=8;
     ['high','medium','low'].forEach(p=>{((r.recommendations||{})[p]||[]).forEach(rec=>{ck(16);const rc=p==='high'?C.red:p==='medium'?C.amb:C.grn;fc([255,255,255]);dc(rc);doc.roundedRect(M,y,W-M*2,13,2,2,'FD');fc(rc);doc.rect(M,y,3,13,'F');doc.setFont('helvetica','bold');doc.setFontSize(9);tc(C.t1);doc.text(`${rec.icon} ${rec.title}`,M+7,y+5.5);doc.setFont('helvetica','normal');doc.setFontSize(8);tc(C.t2);doc.text(doc.splitTextToSize(rec.detail,W-M*2-10)[0]||'',M+7,y+10.5);y+=15;});});
-    // Summary
+    ck(20);np();fc(C.p);doc.rect(0,y-4,210,14,'F');doc.setFont('helvetica','bold');doc.setFontSize(13);doc.setTextColor(255,255,255);doc.text('Experience Scorecard — E1 · E2 · E3',M,y+5);y+=18;
+    ['e1','e2','e3'].forEach((id,idx)=>{const def=SCORECARDS[id];const total=getCardTotal(id);const pct=total/def.max;const dotC=pct>=0.7?C.grn:pct>=0.5?C.amb:C.red;const bx=M+idx*(W-M*2)/3;fc(dotC);doc.circle(bx+8,y+5,5,'F');doc.setFont('helvetica','bold');doc.setFontSize(8);doc.setTextColor(255,255,255);doc.text(String(total),bx+8,y+6.5,{align:'center'});doc.setFont('helvetica','bold');doc.setFontSize(9);tc(C.t1);doc.text(def.label,bx+17,y+4);doc.setFont('helvetica','normal');doc.setFontSize(8);tc(C.t2);doc.text(`${total} / ${def.max}`,bx+17,y+10);});y+=20;
+    ['e1','e2','e3'].forEach(id=>{const def=SCORECARDS[id];ck(16);tc(C.t1);doc.setFont('helvetica','bold');doc.setFontSize(11);doc.text(`${def.icon} ${def.label}`,M,y);y+=8;def.subcats.forEach((sub,si)=>{ck(12);fc(C.bg);dc(C.bd);doc.roundedRect(M,y,W-M*2,9,2,2,'FD');doc.setFont('helvetica','bold');doc.setFontSize(8.5);tc(C.t1);doc.text(sub.name,M+4,y+6);y+=12;sub.criteria.forEach((crit,ci)=>{ck(14);const s=scorecardState[id][si][ci];const dotC=s.currentScore<=2?C.red:s.currentScore<=4?C.amb:C.grn;fc(dotC);doc.circle(M+5,y+3.5,3,'F');doc.setFont('helvetica',s.edited?'bold':'normal');doc.setFontSize(8.5);tc(C.t1);doc.text(crit,M+12,y+5);doc.setFont('helvetica','bold');doc.setFontSize(8.5);tc(dotC);doc.text(`${s.currentScore}/5${s.edited?` (AI:${s.aiScore})`:''}`,W-M,y+5,{align:'right'});if(s.evidence&&s.evidence.length>0){doc.setFont('helvetica','normal');doc.setFontSize(7.5);tc(C.t3);doc.text(`  • ${(s.evidence[0]||'').slice(0,90)}`,M+12,y+10);y+=5;}if(s.note){doc.setFont('helvetica','italic');doc.setFontSize(7.5);tc(C.p);doc.text(`  ✏️ ${s.note.slice(0,100)}`,M+12,y+10);y+=5;}y+=12;});y+=3;});y+=4;});
     ck(28);y+=4;tc(C.t1);doc.setFont('helvetica','bold');doc.setFontSize(11);doc.text('Summary',M,y);y+=8;fc(C.bg);dc(C.bd);doc.roundedRect(M,y,W-M*2,26,3,3,'FD');doc.setFont('helvetica','bold');doc.setFontSize(8);tc(C.t3);doc.text('FULL SUMMARY',M+4,y+6);doc.setFont('helvetica','normal');doc.setFontSize(8.5);tc(C.t2);doc.text(doc.splitTextToSize((r.summary?.full||''),W-M*2-8).slice(0,4),M+4,y+12);y+=30;
-    // Footer
     const pages=doc.internal.getNumberOfPages();for(let p=1;p<=pages;p++){doc.setPage(p);fc([247,248,250]);doc.rect(0,288,210,9,'F');doc.setFont('helvetica','normal');doc.setFontSize(7.5);tc(C.t3);doc.text('SynthTest — Synthetic User Testing',M,293.5);doc.text(`Page ${p} of ${pages}`,W-M,293.5,{align:'right'});}
     doc.save(`SynthTest-${Date.now()}.pdf`);
   }catch(e){alert('PDF error: '+e.message);}
-  btn.innerHTML='⬇️ Download Full Report';btn.disabled=false;
+  btn.innerHTML='⬇️ Download PDF';btn.disabled=false;
 }
 
-/* ── UTILS ── */
+/* ══ UTILS ══ */
 function capFirst(s){return s?s[0].toUpperCase()+s.slice(1):'';}
 function setAnalysing(on){document.getElementById('analyseBtn').disabled=on;document.getElementById('btnIcon').outerHTML=on?'<span class="spinner" id="btnIcon"></span>':'<span id="btnIcon">✨</span>';document.getElementById('btnText').textContent=on?'Analysing…':'Analyse Experience';}
+
+/* ══ INIT ══ */
 loadSavedKey();
+updateHistoryCount();
+checkForSharedReport(); // Check for shared report in URL on load
 </script>
 </body>
 </html>
